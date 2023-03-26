@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home Page</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<div class="container p-2 text-center">
+		<h3>UMN Gotcha</h3>
+		<hr>
+		<div class="row p-1">
+			<div class="col">
+				<!-- <i class="bi bi-egg-fried"></i> -->
+				<label>Makan</label>
+				<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar bg-success" id="bar-makan" style="width: 50%"></div>
+				</div>
+			</div>
+
+			<div class="col">
+				<!-- <i class="bi bi-moon-stars"></i> -->
+				<label>Tidur</label>
+				<div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar bg-info" id="bar-tidur" style="width: 50%"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row p-1">
+			<div class="col">
+				<!-- <i class="bi bi-controller"></i> -->
+				<label>Main</label>
+				<div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar bg-warning" id="bar-main" style="width: 50%"></div>
+				</div>
+			</div>
+			<div class="col">
+				<!-- <i class="bi bi-bandaid"></i> -->
+				<label>Kesehatan</label>
+				<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar bg-danger" id="bar-kesehatan"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="hourPlace">
+			<h3 id="greeting"></h3>
+			<h5 id="clock"></h5>
+		</div>
+
+		<div id="mainPlace">
+			<div id="karakter" style="height: 320px;">
+				
+			</div>
+			<div class="row">
+				<div class="col">
+					<button type="button" id="btn-makan" class="btn btn-outline-success">Makan</button>
+					<button type="button" id="btn-tidur" class="btn btn-outline-info">Tidur</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<button type="button" id="btn-main" class="btn btn-outline-warning">Main</button>
+					<button type="button" id="btn-kesehatan" class="btn btn-outline-danger">Kesehatan</button>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+	<script type="text/javascript">
+		function getGreeting() {
+		  const now = new Date();
+		  const hour = now.getHours();
+
+		  if (hour >= 5 && hour < 12) {
+		    return "Good Morning";
+		  } else if (hour >= 12 && hour < 18) {
+		    return "Good Afternoon";
+		  } else if (hour >= 18 && hour < 22) {
+		    return "Good Evening";
+		  } else {
+		    return "Good Night";
+		  }
+		}
+
+		function updateClock() {
+		  const now = new Date();
+		  const hours = now.getHours();
+		  const minutes = now.getMinutes();
+		  const seconds = now.getSeconds();
+
+		  const timeString = [hours, minutes, seconds]
+		    .map((val) => val.toString().padStart(2, "0"))
+		    .join(":");
+
+		  document.getElementById("clock").textContent = timeString;
+
+		  setTimeout(updateClock, 1000);
+		}
+
+		function updateGreeting() {
+		  const greeting = getGreeting();
+		  document.getElementById("greeting").textContent = greeting;
+		  setTimeout(updateGreeting, 60000);
+		}
+
+		document.addEventListener("DOMContentLoaded", function () {
+		  updateClock();
+		  updateGreeting();
+		});
+
+		// Ambil elemen HTML yang dibutuhkan
+		const barMakanElem = document.getElementById('bar-makan');
+		const barTidurElem = document.getElementById('bar-tidur');
+		const barMainElem = document.getElementById('bar-main');
+		const barKesehatanElem = document.getElementById('bar-kesehatan');
+
+		const btnMakanElem = document.getElementById('btn-makan');
+		const btnTidurElem = document.getElementById('btn-tidur');
+		const btnMainElem = document.getElementById('btn-main');
+		const btnKesehatanElem = document.getElementById('btn-kesehatan');
+
+		// Atur nilai awal untuk setiap bar
+		let barMakanValue = 50;
+		let barTidurValue = 50;
+		let barMainValue = 50;
+		let barKesehatanValue = 50;
+
+		// Fungsi untuk memperbarui nilai setiap bar
+		function updateBars() {
+		  barMakanElem.style.width = barMakanValue + '%';
+		  barTidurElem.style.width = barTidurValue + '%';
+		  barMainElem.style.width = barMainValue + '%';
+		  barKesehatanElem.style.width = barKesehatanValue + '%';
+		}
+
+		// Fungsi untuk menangani tombol makan
+		function onBtnMakanClick() {
+		  barMakanValue += 10;
+		  barTidurValue -= 5;
+		  barMainValue -= 5;
+		  barKesehatanValue -= 5;
+		  updateBars();
+		}
+
+		// Fungsi untuk menangani tombol tidur
+		function onBtnTidurClick() {
+		  barMakanValue -= 5;
+		  barTidurValue += 10;
+		  barMainValue -= 5;
+		  barKesehatanValue -= 5;
+		  updateBars();
+		}
+
+		// Fungsi untuk menangani tombol main
+		function onBtnMainClick() {
+		  barMakanValue -= 10;
+		  barTidurValue -= 5;
+		  barMainValue += 5;
+		  barKesehatanValue -= 5;
+		  updateBars();
+		}
+
+		// Fungsi untuk menangani tombol kesehatan
+		function onBtnKesehatanClick() {
+		  barMakanValue -= 10;
+		  barTidurValue -= 5;
+		  barMainValue -= 5;
+		  barKesehatanValue += 5;
+		  updateBars();
+		}
+
+		// Pasang event listener untuk masing-masing tombol
+		btnMakanElem.addEventListener('click', onBtnMakanClick);
+		btnTidurElem.addEventListener('click', onBtnTidurClick);
+		btnMainElem.addEventListener('click', onBtnMainClick);
+		btnKesehatanElem.addEventListener('click', onBtnKesehatanClick);
+
+		// Panggil fungsi updateBars untuk pertama kali
+		updateBars();
+
+	</script>
+
+</body>
+</html>
