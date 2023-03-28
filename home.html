@@ -58,14 +58,14 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<button type="button" id="btn-makan" class="btn btn-outline-success">Makan</button>
-					<button type="button" id="btn-tidur" class="btn btn-outline-info">Tidur</button>
+					<button type="button" id="btn-makan" class="btn btn-success">Makan</button>
+					<button type="button" id="btn-tidur" class="btn btn-info">Tidur</button>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
-					<button type="button" id="btn-main" class="btn btn-outline-warning">Main</button>
-					<button type="button" id="btn-kesehatan" class="btn btn-outline-danger">Kesehatan</button>
+					<button type="button" id="btn-main" class="btn btn-warning">Main</button>
+					<button type="button" id="btn-kesehatan" class="btn btn-danger">Kesehatan</button>
 				</div>
 			</div>
 		</div>
@@ -73,6 +73,7 @@
 	</div>
 
 	<script type="text/javascript">
+		//function salam sesuai jam
 		function getGreeting() {
 		  const now = new Date();
 		  const hour = now.getHours();
@@ -88,6 +89,7 @@
 		  }
 		}
 
+		//untuk update clocknya terus kalau berubah, ga perlu di refresh
 		function updateClock() {
 		  const now = new Date();
 		  const hours = now.getHours();
@@ -103,6 +105,7 @@
 		  setTimeout(updateClock, 1000);
 		}
 
+		//function ubah background yang ngambil dari fungsi getGreeting()
 		function updateGreeting() {
 		  const greeting = getGreeting();
 		  document.getElementById("greeting").textContent = greeting;
@@ -113,6 +116,23 @@
 		  updateClock();
 		  updateGreeting();
 		});
+
+		const body = document.querySelector("body");
+		const greeting = getGreeting();
+		let backgroundColor;
+		if (greeting === "Good Morning") {
+		  backgroundColor = "#4673e3";
+		} else if (greeting === "Good Afternoon") {
+		  backgroundColor = "#e6842e";
+		} else if (greeting === "Good Evening") {
+		  backgroundColor = "#15105c";
+		} else {
+		  backgroundColor = "#040221";
+		}
+
+		// Mengubah warna background pada elemen HTML
+		body.style.backgroundColor = "#4673e3";
+
 
 		// Ambil elemen HTML yang dibutuhkan
 		const barMakanElem = document.getElementById('bar-makan');
