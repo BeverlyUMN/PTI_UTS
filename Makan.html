@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Makan</title>
+	<style>
+		#container {
+			position: relative;
+			width: 1000px;
+			height: 1000px;
+			margin: 50px auto;
+			overflow: hidden;
+		}
+
+		#container img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			animation: move 1s linear forwards;
+		}
+
+		@keyframes move {
+			from { top: 200px; }
+			to { bottom: 450px; opacity: 0; }
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<button onclick="addImage()">Makan</button>
+	</div>
+
+	<script>
+		function addImage() {
+			var container = document.getElementById("container");
+			var img = document.createElement("img");
+			img.src = "food1.jpg";
+			container.appendChild(img);
+
+			img.addEventListener("animationend", function() {
+				container.removeChild(img);
+			});
+		}
+	</script>
+</body>
+</html>
