@@ -13,19 +13,20 @@
 
 		#container img {
 			position: absolute;
-			top: 0;
-			left: 0;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
 			animation: move 1s linear forwards;
 		}
 
 		@keyframes move {
-			from { top: 200px; }
-			to { bottom: 450px; opacity: 0; }
+			from { bottom: 100px; }
+			to { top: 100px; opacity: 0; }
 		}
 	</style>
 </head>
 <body>
-	<div id="container">
+	<div id="container" style="background-image: url('backgrounds/ruangmakan.jpg'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center;">
 		<button onclick="addImage()">Makan</button>
 	</div>
 
