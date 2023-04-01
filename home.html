@@ -12,10 +12,9 @@
 <body>
 	<div class="container p-2 text-center">
 		<h3>UMN Gotcha</h3>
-		<hr>
+		<hr style="border: 2px solid black;">
 		<div class="row p-1">
 			<div class="col">
-				<!-- <i class="bi bi-egg-fried"></i> -->
 				<label>Makan</label>
 				<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 					<div class="progress-bar bg-success" id="bar-makan" style="width: 50%"></div>
@@ -23,7 +22,6 @@
 			</div>
 
 			<div class="col">
-				<!-- <i class="bi bi-moon-stars"></i> -->
 				<label>Tidur</label>
 				<div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
 					<div class="progress-bar bg-info" id="bar-tidur" style="width: 50%"></div>
@@ -32,14 +30,12 @@
 		</div>
 		<div class="row p-1">
 			<div class="col">
-				<!-- <i class="bi bi-controller"></i> -->
 				<label>Main</label>
 				<div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
 					<div class="progress-bar bg-warning" id="bar-main" style="width: 50%"></div>
 				</div>
 			</div>
 			<div class="col">
-				<!-- <i class="bi bi-bandaid"></i> -->
 				<label>Kesehatan</label>
 				<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
 					<div class="progress-bar bg-danger" id="bar-kesehatan"></div>
@@ -49,11 +45,12 @@
 
 		<div id="hourPlace">
 			<h3 id="greeting"></h3>
-			<h5 id="clock"></h5>
+			<h3 id="hour"></h3>
+			<h5 id="day"></h5>
 		</div>
 
 		<div id="mainPlace">
-			<div id="karakter" style="height: 320px;">
+			<div id="karakter" style="height: 310px;">
 				
 			</div>
 			<div class="row">
@@ -74,65 +71,29 @@
 
 	<script type="text/javascript">
 		//function salam sesuai jam
-		function getGreeting() {
-		  const now = new Date();
-		  const hour = now.getHours();
+		function getHour() {
+			let hour = 0;
+			let minute = 0;
+			let day = 1;
 
-		  if (hour >= 5 && hour < 12) {
-		    return "Good Morning";
-		  } else if (hour >= 12 && hour < 18) {
-		    return "Good Afternoon";
-		  } else if (hour >= 18 && hour < 22) {
-		    return "Good Evening";
-		  } else {
-		    return "Good Night";
-		  }
+			setInterval(() => {
+			  minute++;
+
+			  if (minute >= 60) {
+			    hour++;
+			    minute = 0;
+			  }
+
+			  if (hour >= 24) {
+			    day++;
+			    hour = 0;
+			  }
+
+			  const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+			  document.getElementById('hour').textContent = formattedTime;
+			  document.getElementById('day').textContent = `Day ${day}`;
+			}, 1000);
 		}
-
-		//untuk update clocknya terus kalau berubah, ga perlu di refresh
-		function updateClock() {
-		  const now = new Date();
-		  const hours = now.getHours();
-		  const minutes = now.getMinutes();
-		  const seconds = now.getSeconds();
-
-		  const timeString = [hours, minutes, seconds]
-		    .map((val) => val.toString().padStart(2, "0"))
-		    .join(":");
-
-		  document.getElementById("clock").textContent = timeString;
-
-		  setTimeout(updateClock, 1000);
-		}
-
-		//function ubah background yang ngambil dari fungsi getGreeting()
-		function updateGreeting() {
-		  const greeting = getGreeting();
-		  document.getElementById("greeting").textContent = greeting;
-		  setTimeout(updateGreeting, 60000);
-		}
-
-		document.addEventListener("DOMContentLoaded", function () {
-		  updateClock();
-		  updateGreeting();
-		});
-
-		const body = document.querySelector("body");
-		const greeting = getGreeting();
-		let backgroundColor;
-		if (greeting === "Good Morning") {
-		  backgroundColor = "#4673e3";
-		} else if (greeting === "Good Afternoon") {
-		  backgroundColor = "#e6842e";
-		} else if (greeting === "Good Evening") {
-		  backgroundColor = "#15105c";
-		} else {
-		  backgroundColor = "#040221";
-		}
-
-		// Mengubah warna background pada elemen HTML
-		body.style.backgroundColor = "#4673e3";
-
 
 		// Ambil elemen HTML yang dibutuhkan
 		const barMakanElem = document.getElementById('bar-makan');
@@ -146,10 +107,10 @@
 		const btnKesehatanElem = document.getElementById('btn-kesehatan');
 
 		// Atur nilai awal untuk setiap bar
-		let barMakanValue = 50;
-		let barTidurValue = 50;
-		let barMainValue = 50;
-		let barKesehatanValue = 50;
+		let barMakanValue = 100;
+		let barTidurValue = 100;
+		let barMainValue = 100;
+		let barKesehatanValue = 100;
 
 		// Fungsi untuk memperbarui nilai setiap bar
 		function updateBars() {
@@ -161,38 +122,47 @@
 
 		// Fungsi untuk menangani tombol makan
 		function onBtnMakanClick() {
-		  barMakanValue += 10;
-		  barTidurValue -= 5;
-		  barMainValue -= 5;
-		  barKesehatanValue -= 5;
-		  updateBars();
+			if (barMakanValue != 100 || barTidurValue != 0 || barMainValue != 0 || barKesehatanValue != 0) {
+				barMakanValue += 10;
+				barTidurValue -= 5;
+				barMainValue -= 5;
+				barKesehatanValue -= 5;
+				updateBars();
+			}
 		}
 
 		// Fungsi untuk menangani tombol tidur
 		function onBtnTidurClick() {
-		  barMakanValue -= 5;
-		  barTidurValue += 10;
-		  barMainValue -= 5;
-		  barKesehatanValue -= 5;
-		  updateBars();
+			if (barTidurValue != 100 || barMakanValue != 0 || barMainValue != 0 || barKesehatanValue != 0) {
+				barMakanValue -= 5;
+				barTidurValue += 10;
+				barMainValue -= 5;
+				barKesehatanValue -= 5;
+				updateBars();
+			}
 		}
 
 		// Fungsi untuk menangani tombol main
 		function onBtnMainClick() {
-		  barMakanValue -= 10;
-		  barTidurValue -= 5;
-		  barMainValue += 5;
-		  barKesehatanValue -= 5;
-		  updateBars();
+			if (barMainValue != 100 || barMakanValue != 0 || barTidurValue != 0 || barKesehatanValue != 0) {
+				barMakanValue -= 10;
+		  		barTidurValue -= 5;
+		  		barMainValue += 5;
+		  		barKesehatanValue -= 5;
+		  		updateBars();
+			}
+		  
 		}
 
 		// Fungsi untuk menangani tombol kesehatan
 		function onBtnKesehatanClick() {
-		  barMakanValue -= 10;
-		  barTidurValue -= 5;
-		  barMainValue -= 5;
-		  barKesehatanValue += 5;
-		  updateBars();
+			if (barKesehatanValue != 100 || barMakanValue != 0 || barTidurValue != 0 || barMakanValue != 0) {
+				barMakanValue -= 10;
+		  		barTidurValue -= 5;
+		  		barMainValue -= 5;
+		  		barKesehatanValue += 5;
+		  		updateBars();
+			}
 		}
 
 		// Pasang event listener untuk masing-masing tombol
@@ -203,6 +173,28 @@
 
 		// Panggil fungsi updateBars untuk pertama kali
 		updateBars();
+
+		function decreaseBars() {
+		  setInterval(() => {
+		    if (barMakanValue > 0) {
+		      barMakanValue -= 1;
+		    }
+		    if (barTidurValue > 0) {
+		      barTidurValue -= 1;
+		    }
+		    if (barMainValue > 0) {
+		      barMainValue -= 1;
+		    }
+		    if (barKesehatanValue > 0) {
+		      barKesehatanValue -= 1;
+		    }
+		    updateBars();
+		  }, 5000);
+		}
+
+		// Panggil fungsi decreaseBars bersamaan dengan fungsi getHour
+		getHour();
+		decreaseBars();
 
 	</script>
 
