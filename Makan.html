@@ -9,6 +9,10 @@
 			height: 1000px;
 			margin: 50px auto;
 			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
 		}
 
 		#container img {
@@ -23,18 +27,37 @@
 			from { bottom: 100px; }
 			to { top: 100px; opacity: 0; }
 		}
+
+		#button {
+			position: absolute;
+			bottom: 20px;
+			width: 100px;
+			height: 50px;
+			background-color: #fff;
+			border: 1px solid #000;
+			border-radius: 10px;
+			font-size: 16px;
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
-	<div id="container" style="background-image: url('backgrounds/ruangmakan.jpg'); background-size: cover; background-position: center; display: flex; justify-content: center; align-items: center;">
-		<button onclick="addImage()">Makan</button>
+	<div id="container" style="background-image: url('backgrounds/ruangmakan.jpg'); background-size: cover; background-position: center;">
+		<button id="button" onclick="addImage()">Makan</button>
 	</div>
 
 	<script>
 		function addImage() {
 			var container = document.getElementById("container");
+			var imgSources = [
+				"icons/food.png",
+				"icons/food1.png",
+				"icons/food2.png",
+				"icons/food3.png",
+				"icons/food4.png"
+			];
 			var img = document.createElement("img");
-			img.src = "food1.jpg";
+			img.src = imgSources[Math.floor(Math.random() * imgSources.length)];
 			container.appendChild(img);
 
 			img.addEventListener("animationend", function() {
