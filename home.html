@@ -1,233 +1,273 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home Page</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <head>
+        <title>Home Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    </head>
+    	<style type="text/css">
+    		* {
+    			color: white;
+    			font-weight: bold;
+    			margin: 0;
+    			padding: 0;
+    		}
 
-<body>
-	<div class="container p-2 text-center">
-		<div class="row">
-			<div class="col">
-				<h5 class="mt-2" id="pet"></h5>
-			</div>
-			<div class="col">
-				<h3>UMN Gotcha</h3>
-			</div>
-			<div class="col">
-				<h5 class="mt-2">Level 1</h5>
-			</div>
-		</div>
-		<hr style="border: 2px solid black;">
-		<div class="row p-1">
-			<div class="col">
-				<label>Makan</label>
-				<div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-					<div class="progress-bar bg-success" id="bar-makan" style="width: 50%"></div>
-				</div>
-			</div>
+    		body {
+    			min-height: 700px;
+    		}
 
-			<div class="col">
-				<label>Tidur</label>
-				<div class="progress" role="progressbar" aria-label="Info example" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
-					<div class="progress-bar bg-info" id="bar-tidur" style="width: 50%"></div>
-				</div>
-			</div>
-		</div>
-		<div class="row p-1">
-			<div class="col">
-				<label>Main</label>
-				<div class="progress" role="progressbar" aria-label="Warning example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-					<div class="progress-bar bg-warning" id="bar-main" style="width: 50%"></div>
-				</div>
-			</div>
-			<div class="col">
-				<label>Kesehatan</label>
-				<div class="progress" role="progressbar" aria-label="Danger example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-					<div class="progress-bar bg-danger" id="bar-kesehatan"></div>
-				</div>
-			</div>
-		</div>
+    		#allButtons button{
+			    width:25%;
+			    margin: 5px;
+			}
 
-		<div id="hourPlace">
-			<h3 id="greeting"></h3>
-			<h3 id="hour"></h3>
-			<h5 id="day"></h5>
-		</div>
+			#progressBar .progress{
+			    width:100%;
+			}
 
-		<div id="mainPlace">
-			<div id="karakter" style="height: 310px;">
-				
-			</div>
-			<div class="row">
+			#progressBar img{
+			    width: 40x;
+			    height: 40px;
+			    margin-right: 10px;
+			}
+
+			#tempat {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 290px;
+			}
+
+			#tempat img {
+				max-width: 100px;
+			}
+    	</style>
+    <body>
+        <div class="container p2 text-center">
+            <div class="row mt-2">
 				<div class="col">
-					<button type="button" id="btn-makan" class="btn btn-success">Makan</button>
-					<button type="button" id="btn-tidur" class="btn btn-info">Tidur</button>
+					<h5 class="mt-2" id="pet"></h5>
 				</div>
-			</div>
-			<div class="row">
 				<div class="col">
-					<button type="button" id="btn-main" class="btn btn-warning">Main</button>
-					<button type="button" id="btn-kesehatan" class="btn btn-danger">Kesehatan</button>
+					<h3>UMN Gotcha</h3>
+				</div>
+				<div class="col">
+					<h5 class="mt-2" id="level"></h5>
 				</div>
 			</div>
-		</div>
-		
-	</div>
 
-	<script type="text/javascript">
-		var params = new URLSearchParams(window.location.search);
-		var petname = params.get('petname'); 
+			<hr style="border: 2px solid black;">
 
-		document.getElementById('pet').textContent = "Halo " + petname;
+            <div id="progressBar">
+                <div class="row p-1">
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/makan.png">
+                        <div class="progress" id="eatBar">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/tidur.png">
+                        <div class="progress" id="sleepBar">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/main.png">
+                        <div class="progress" id="playBar">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/med.png">
+                        <div class="progress"  id="medBar">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		//function salam sesuai jam
-		function getHour() {
-			let hour = 0;
-			let minute = 0;
-			let day = 1;
+            <div id="theGreetings">
+                <h3 class="mt-3 mb-3" id="theMessage"></h3>
+                <h5 id="theHours"></h5>
+            </div>
 
-			setInterval(() => {
-			  minute++;
+            <div id="tempat">
+            </div>
 
-			  if (minute >= 60) {
-			    hour++;
-			    minute = 0;
-			  }
+            <div id="allButtons">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success btn-sm btn-md btn-lg btn-xl btn-block" id="eatButton">Eat</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-info btn-sm btn-md btn-lg btn-xl btn-block" id="sleepButton">Sleep</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-warning btn-sm btn-md btn-lg btn-xl btn-block" id="playButton">Game</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-danger btn-sm btn-md btn-lg btn-xl btn-block" id="medButton">Med</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
 
-			  if (hour >= 24) {
-			    day++;
-			    hour = 0;
-			  }
+            $(document).ready(function(){
+                $('.progress-bar').each(function(){
+                    var width = $(this).attr('aria-valuenow');
+                    $(this).animate({width: width + '%'}, 1000, function(){
+                        $(this).text(width + '%');
+                    });
+                });
+            });
 
-			  const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-			  document.getElementById('hour').textContent = formattedTime;
-			  document.getElementById('day').textContent = `Day ${day}`;
-			}, 1000);
-		}
+            $(document).ready(function() {
+			    let hour = 0;
+			    let minute = 0;
+			    let day = 1;
+			    let level = 1; // set level awal ke 1
+			    setInterval(() => {
+			        minute++;
+			        if (minute >= 60) {
+			            hour++;
+			            minute = 0;
+			        }
+			        if (hour >= 24) {
+			            day++;
+			            hour = 0;
 
-		function salamSesuaiJam(jam) {
-		  let salam;
+			            // tambahkan kondisi untuk mengisi variabel level
+			        	if (day === 1) {
+			                level = 2;
+			       		 } else if (day === 2) {
+			                level = 3;
+			            }
+			        }
 
-		  if (jam >= 0 && jam < 8) {
-		    salam = "Good Morning";
-		  } else if (jam >= 8 && jam < 14) {
-		    salam = "Good Afternoon";
-		  } else if (jam >= 14 && jam < 18) {
-		    salam = "Good Evening";
-		  } else {
-		    salam = "Good Night";
-		  }
+			        document.getElementById('level').textContent = "Level " + level;
 
-		  document.getElementById('pet').textContent = `${salam}, ${petname}!`;
-		}
+			        let greeting;
+			        if (hour >= 0 && hour < 12) {
+			            greeting = "Good Morning";
+			        } else if (hour >= 12 && hour < 18) {
+			            greeting = "Good Afternoon";
+			        } else {
+			            greeting = "Good Evening";
+			        }
 
-		// Ambil elemen HTML yang dibutuhkan
-		const barMakanElem = document.getElementById('bar-makan');
-		const barTidurElem = document.getElementById('bar-tidur');
-		const barMainElem = document.getElementById('bar-main');
-		const barKesehatanElem = document.getElementById('bar-kesehatan');
+			        var params = new URLSearchParams(window.location.search);
+			        var petname = params.get('petname');
+			        document.getElementById('pet').textContent = greeting + " " + petname;
 
-		const btnMakanElem = document.getElementById('btn-makan');
-		const btnTidurElem = document.getElementById('btn-tidur');
-		const btnMainElem = document.getElementById('btn-main');
-		const btnKesehatanElem = document.getElementById('btn-kesehatan');
+			        if (hour >= 0 && hour < 15) {
+			            $('body').css('background', 'url(backgrounds/coba1.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+			        } else if (hour >= 15 && hour < 24) {
+			            $('body').css('background', 'url(backgrounds/coba.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+			        }
 
-		// Atur nilai awal untuk setiap bar
-		let barMakanValue = 100;
-		let barTidurValue = 100;
-		let barMainValue = 100;
-		let barKesehatanValue = 100;
+			        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+			        $('#theHours').text(formattedTime);
+			        $('#theMessage').text("Day " + day);
 
-		// Fungsi untuk memperbarui nilai setiap bar
-		function updateBars() {
-		  barMakanElem.style.width = barMakanValue + '%';
-		  barTidurElem.style.width = barTidurValue + '%';
-		  barMainElem.style.width = barMainValue + '%';
-		  barKesehatanElem.style.width = barKesehatanValue + '%';
-		}
+			        var character = params.get('character');
+			        if (character === "gudetama") {
+			        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
+				        if (level === 1) {
+				            $('#tempat').html('<img src="characters/tamaBayi.png"');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/tamaAnak.png"');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/tamaGede.png"');
+				        }
+			        } else if (character === "stitch"){
+			        	if (level === 1) {
+				            $('#tempat').html('<img src="characters/stitchBayi.png"');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/stitchAnak.png"');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/stitchGede.png"');
+				        }
+			        }
+			        // simpan variabel hour, day, dan level pada session storage
+			        sessionStorage.setItem('hour', hour);
+			        sessionStorage.setItem('day', day);
+			        sessionStorage.setItem('level', level);
+			        sessionStorage.setItem('character', character);
+			    }, 1000);
+			});
 
-		// Fungsi untuk menangani tombol makan
-		function onBtnMakanClick() {
-			if (barMakanValue != 100 || barTidurValue != 0 || barMainValue != 0 || barKesehatanValue != 0) {
-				barMakanValue += 10;
-				barTidurValue -= 5;
-				barMainValue -= 5;
-				barKesehatanValue -= 5;
-				updateBars();
-			}
-		}
 
-		// Fungsi untuk menangani tombol tidur
-		function onBtnTidurClick() {
-			if (barTidurValue != 100 || barMakanValue != 0 || barMainValue != 0 || barKesehatanValue != 0) {
-				barMakanValue -= 5;
-				barTidurValue += 10;
-				barMainValue -= 5;
-				barKesehatanValue -= 5;
-				updateBars();
-			}
-		}
+            $(document).ready(function(){
+                var eatValue = 50;
+                var sleepValue = 50;
+                var playValue = 50;
+                var medValue = 50;
+                updateBars();
+                // decrease the values of each progress bar every 2 seconds
+                setInterval(function(){
+                    if (eatValue > 0) eatValue -= 1;
+                    if (sleepValue > 0) sleepValue -= 1;
+                    if (playValue > 0) playValue -= 1;
+                    if (medValue > 0) medValue -= 1;
+                    updateBars();
+                }, 5000);
+                
+                function updateBars(){
+                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
+                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
+                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
+                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
+                }
 
-		// Fungsi untuk menangani tombol main
-		function onBtnMainClick() {
-			if (barMainValue != 100 || barMakanValue != 0 || barTidurValue != 0 || barKesehatanValue != 0) {
-				barMakanValue -= 10;
-		  		barTidurValue -= 5;
-		  		barMainValue += 5;
-		  		barKesehatanValue -= 5;
-		  		updateBars();
-			}
-		  
-		}
+                $("#eatButton").click(function(){
+                    if(eatValue <100){
+                        eatValue +=5;
+                        sleepValue -=1;
+                        playValue -= 1;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
 
-		// Fungsi untuk menangani tombol kesehatan
-		function onBtnKesehatanClick() {
-			if (barKesehatanValue != 100 || barMakanValue != 0 || barTidurValue != 0 || barMakanValue != 0) {
-				barMakanValue -= 10;
-		  		barTidurValue -= 5;
-		  		barMainValue -= 5;
-		  		barKesehatanValue += 5;
-		  		updateBars();
-			}
-		}
+                $("#sleepButton").click(function(){
+                    if(sleepValue <100){
+                        eatValue -= 1;
+                        sleepValue += 5;
+                        playValue -= 1;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
 
-		// Pasang event listener untuk masing-masing tombol
-		btnMakanElem.addEventListener('click', onBtnMakanClick);
-		btnTidurElem.addEventListener('click', onBtnTidurClick);
-		btnMainElem.addEventListener('click', onBtnMainClick);
-		btnKesehatanElem.addEventListener('click', onBtnKesehatanClick);
+                $("#playButton").click(function(){
+                    if(playValue <100){
+                        eatValue -= 1;
+                        sleepValue -= 1;
+                        playValue += 5;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
 
-		// Panggil fungsi updateBars untuk pertama kali
-		updateBars();
-
-		function decreaseBars() {
-		  setInterval(() => {
-		    if (barMakanValue > 0) {
-		      barMakanValue -= 1;
-		    }
-		    if (barTidurValue > 0) {
-		      barTidurValue -= 1;
-		    }
-		    if (barMainValue > 0) {
-		      barMainValue -= 1;
-		    }
-		    if (barKesehatanValue > 0) {
-		      barKesehatanValue -= 1;
-		    }
-		    updateBars();
-		  }, 5000);
-		}
-
-		// Panggil fungsi decreaseBars bersamaan dengan fungsi getHour
-		getHour();
-		decreaseBars();
-
-	</script>
-
-</body>
+                $("#medButton").click(function(){
+                    if(medValue <100){
+                        eatValue -=1;
+                        sleepValue -=1;
+                        playValue -= 1;
+                        medValue += 5;
+                        updateBars();
+                    }
+                });
+            });
+        </script>
+    </body>
 </html>
