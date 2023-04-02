@@ -1,0 +1,21 @@
+#allButtons button{
+    width:25%;
+    margin: 5px;
+}
+
+#progressBar .progress{
+    width:100%;
+}
+
+#progressBar img{
+    width: 40x;
+    height: 40px;
+    margin-right: 10px;
+    /* margin-left: 3px; */
+}
+
+body{
+    background-image: url(backgrounds/asian-bedroom-chinese-japanese-eastern-room_33099-1846.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
