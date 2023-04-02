@@ -19,3 +19,13 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+#pillContainer img{
+      width: 100px;
+      height: 100px;
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+}
