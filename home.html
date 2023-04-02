@@ -11,7 +11,17 @@
 
 <body>
 	<div class="container p-2 text-center">
-		<h3>UMN Gotcha</h3>
+		<div class="row">
+			<div class="col">
+				<h5 class="mt-2" id="pet"></h5>
+			</div>
+			<div class="col">
+				<h3>UMN Gotcha</h3>
+			</div>
+			<div class="col">
+				<h5 class="mt-2">Level 1</h5>
+			</div>
+		</div>
 		<hr style="border: 2px solid black;">
 		<div class="row p-1">
 			<div class="col">
@@ -70,6 +80,11 @@
 	</div>
 
 	<script type="text/javascript">
+		var params = new URLSearchParams(window.location.search);
+		var petname = params.get('petname'); 
+
+		document.getElementById('pet').textContent = "Halo " + petname;
+
 		//function salam sesuai jam
 		function getHour() {
 			let hour = 0;
@@ -93,6 +108,22 @@
 			  document.getElementById('hour').textContent = formattedTime;
 			  document.getElementById('day').textContent = `Day ${day}`;
 			}, 1000);
+		}
+
+		function salamSesuaiJam(jam) {
+		  let salam;
+
+		  if (jam >= 0 && jam < 8) {
+		    salam = "Good Morning";
+		  } else if (jam >= 8 && jam < 14) {
+		    salam = "Good Afternoon";
+		  } else if (jam >= 14 && jam < 18) {
+		    salam = "Good Evening";
+		  } else {
+		    salam = "Good Night";
+		  }
+
+		  document.getElementById('pet').textContent = `${salam}, ${petname}!`;
 		}
 
 		// Ambil elemen HTML yang dibutuhkan
