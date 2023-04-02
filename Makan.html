@@ -16,17 +16,18 @@
 		}
 
 		#container img {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			animation: move 1s linear forwards;
+		    position: absolute;
+		    top: 100%;
+		    left: 50%;
+		    transform: translate(50%, 100%);
+		    animation: move 0.5s linear forwards;
 		}
 
 		@keyframes move {
-			from { bottom: 100px; }
-			to { top: 100px; opacity: 0; }
+		    from { transform: translate(-100%, -100%); }
+		    to { transform: translate(-50%, -200%); }
 		}
+
 
 		#button {
 			position: absolute;
@@ -39,6 +40,19 @@
 			font-size: 16px;
 			cursor: pointer;
 		}
+		.spawn-image {
+			position: absolute;
+			width: 250px;
+			height: 250px;
+			transform: translate(-50%, -50%);
+			opacity: 1;
+			transition: opacity 1s linear;
+		}
+
+		.spawn-image.visible {
+			opacity: 0;
+			transition: opacity 1s linear;
+		}
 	</style>
 </head>
 <body>
@@ -47,23 +61,37 @@
 	</div>
 
 	<script>
-		function addImage() {
-			var container = document.getElementById("container");
-			var imgSources = [
-				"icons/food.png",
-				"icons/food1.png",
-				"icons/food2.png",
-				"icons/food3.png",
-				"icons/food4.png"
-			];
-			var img = document.createElement("img");
-			img.src = imgSources[Math.floor(Math.random() * imgSources.length)];
-			container.appendChild(img);
+function addImage() {
+  var container = document.getElementById("container");
+  var imgSources = [
+    "icons/food.png",
+    "icons/food1.png",
+    "icons/food2.png",
+    "icons/food3.png",
+    "icons/food4.png"
+  ];
+  var img = document.createElement("img");
+  img.src = imgSources[Math.floor(Math.random() * imgSources.length)];
+  img.classList.add("img-fluid", "d-block", "spawn-image");
+  container.appendChild(img);
 
-			img.addEventListener("animationend", function() {
-				container.removeChild(img);
-			});
-		}
+  // animate image from button to middle
+  var buttonRect = document.getElementById("button").getBoundingClientRect();
+  var containerRect = container.getBoundingClientRect();
+  var x = buttonRect.left + buttonRect.width / 2 - containerRect.left;
+  var y = buttonRect.top + buttonRect.height / 2 - containerRect.top;
+  img.style.transform = "translate(" + x + "px, " + y + "px)";
+
+  // detect when the image animation has finished
+  img.addEventListener("transitionend", function() {
+    // remove image from container after animation
+    container.removeChild(img);
+  });
+
+  // animate image opacity
+  img.classList.add("visible");
+}
+
 	</script>
 </body>
 </html>
