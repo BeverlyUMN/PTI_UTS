@@ -12,13 +12,13 @@
         <div class="container p2 text-center" style="color: white; font-family: Verdana;">
             <div class="row mb-3 mt-3"> 
                 <div class="col">
-                    <h5 class="mt-2" id="halo"></h5>
+                    <h5 class="mt-2" id="pet"></h5>
                 </div>
                 <div class="col">
                     <h3>UMNGotcha</h3>
                 </div>          
                 <div class="col">
-                    <h5 class="mt-2">Level 1</h5>
+                    <h5 class="mt-2" id="level"></h5>
                 </div>      
             </div>
             <hr style="border: 2px solid black;">
@@ -58,7 +58,7 @@
                 <h5 id="theHours"></h5>
             </div>
 
-            <div id="character" style="height: 320px;"></div>
+            <div id="tempat"></div>
 
             <div id="allButtons">
                 <div class="row">
@@ -84,12 +84,7 @@
         </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            $(document).ready(function(){
-                var params = new URLSearchParams(window.location.search);
-                var petname = params.get('petname'); 
-                $('#halo').text("Halo " + petname);
-            });
-
+                
             $(document).ready(function(){//for progress bar width and percentage
                 $('.progress-bar').each(function(){
                     var width = $(this).attr('aria-valuenow');
@@ -104,6 +99,7 @@
                 let hour = 0;
                 let minute = 0;
                 let day = 1;
+                let level=1;
                 setInterval(()=>{
                     minute++;
                     if(minute>=60){
@@ -113,7 +109,14 @@
                     if(hour>=24){
                         day++;
                         hour = 0;
+                        if (day === 1) {
+			                level = 2;
+			       		 } else if (day === 2) {
+			                level = 3;
+			            }
                     }
+
+                    document.getElementById('level').textContent = "Level " + level;
                     let greeting; //greeting message displayed
                         if(hour >= 0 && hour < 12){
                             greeting = "Good Morning";
@@ -124,10 +127,36 @@
                         else{
                             greeting = "Good Evening";
                         }
-                        $('#theMessage').text(greeting);
+
+                        var params = new URLSearchParams(window.location.search);
+                        var petname = params.get('petname'); 
+                        document.getElementById('pet').textContent = greeting + " " + petname;
+                        
                     //for the clock
                     const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                     $('#theHours').text(formattedTime);
+                    $('#theMessage').text("Day " + day);
+
+                    var character = params.get('character');
+			        console.log(character);
+			        if (character === "gudetama") {
+			        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
+				        if (level === 1) {
+				            $('#tempat').html('<img src="characters/tamaBayi.png">');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/tamaAnak.png">');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/tamaGede.png">');
+				        }
+			        } else if (character === "stitch"){
+			        	if (level === 1) {
+				            $('#tempat').html('<img src="characters/stitchBayi.png">');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/stitchAnak.png">');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/stitchGede.png">');
+				        }
+			        }
                 }, 1000);
             });
 
@@ -145,6 +174,17 @@
                     if (medValue > 0) medValue -= 1;
                     updateBars();
                 }, 5000);
+
+                function checkBars() {
+					    if (eatValue < 15 || sleepValue < 15 || playValue < 15 || medValue < 15) {
+					        alert("Warning: your pet is dying! Check his condition now!");
+					    }
+					    if (eatValue <= 0 || sleepValue <= 0 || playValue <= 0 || medValue <= 0) {
+					    	alert("Oh no! your pet is die.")
+					    	alert("GAME OVER!");
+					        window.location.href = "landingpage.php";
+					    }
+				}
                 
                 function updateBars(){//for updating the progress bar
                     $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
