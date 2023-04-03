@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Play</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="Playstyle.css"> 
+        <style>
+            canvas{
+                border:1px solid #d3d3d3;
+                background-color: #f1f1f1;
+            }
+        </style>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    </head>
+    <body>
+        <div class="container p2 text-center">
+            <div class="row mb-3 mt-3">
+                <div class="col">
+                    <h5 class="mt-2" id="halo"></h5>
+                </div>
+                <div class="col">
+                    <h3>UMNGotcha</h3>
+                </div>          
+                <div class="col">
+                    <h5 class="mt-2">Level 1</h5>
+                </div>      
+            </div>
+            <hr style="border: 2px solid black;">
+            <div id="progressBar">
+                <div class="row p-1">
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/makan.png">
+                        <div class="progress" id="eatBar">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/tidur.png">
+                        <div class="progress" id="sleepBar">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/main.png">
+                        <div class="progress" id="playBar">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/med.png">
+                        <div class="progress"  id="medBar">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="theGreetings">
+                <h3 class="mt-3 mb-3" id="theMessage"></h3>
+                <h5 id="theHours"></h5>
+            </div>
+
+            <div id="gameContainer">
+                <img src="characters/telur.png" id="character">
+                <img src="icons/star.png" id="star">
+            </div>
+
+            <div id="buttonContainer">    
+                <button type="button" class="dirBtn" id="upBtn"><i class="fas fa-chevron-up"></i>
+                    <span class="btnText">Up</span></button>
+                <br>
+                <button type="button" class="dirBtn" id="leftBtn"><i class="fas fa-chevron-left"></i>
+                    <span class="btnText">Left</span></button>
+                <button type="button" class="dirBtn" id="rightBtn"><i class="fas fa-chevron-right"></i>
+                    <span class="btnText">Right</span></button>
+                <br>
+                <button type="button" class="dirBtn" id="downBtn"><i class="fas fa-chevron-down"></i>
+                    <span class="btnText">Down</span></button>
+            </div>
+
+            <div id="allButtons">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success" id="eatButton">Makan</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-info" id="sleepButton">Tidur</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-warning" id="playButton">Main</button>
+                        <div id="gameMessage"></div>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-danger" id="medButton">Obat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var params = new URLSearchParams(window.location.search);
+                var petname = params.get('petname'); 
+                $('#halo').text("Halo " + petname);
+            });
+
+            $(document).ready(function(){//for progress bar width and percentage
+                $('.progress-bar').each(function(){
+                    var width = $(this).attr('aria-valuenow');
+                    $(this).animate({width: width + '%'}, 1000, function(){
+                        $(this).text(width + '%');
+                    });
+                });
+            });
+
+            $(document).ready(function(){
+                //for the clock and greeting of the game
+                let hour = 0;
+                let minute = 0;
+                let day = 1;
+                setInterval(()=>{
+                    minute++;
+                    if(minute>=60){
+                        hour++;
+                        minute = 0;
+                    }
+                    if(hour>=24){
+                        day++;
+                        hour = 0;
+                    }
+                    let greeting; //greeting message displayed
+                        if(hour >= 0 && hour < 12){
+                            greeting = "Good Morning";
+                        } 
+                        else if(hour >= 12 && hour < 18){
+                            greeting = "Good Aternoon";
+                        } 
+                        else{
+                            greeting = "Good Evening";
+                        }
+                        $('#theMessage').text(greeting);
+                    //for the clock
+                    const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    $('#theHours').text(formattedTime);
+                }, 1000);
+            });
+
+            $(document).ready(function(){
+                var eatValue = 50;
+                var sleepValue = 50;
+                var playValue = 50;
+                var medValue = 50;
+                updateBars();
+                // decrease the values of each progress bar every 5 seconds and increment or decrement when one is clicked
+                setInterval(function(){
+                    if(eatValue > 0) eatValue -= 1;
+                    if(sleepValue > 0) sleepValue -= 1;
+                    if(playValue > 0) playValue -= 1;
+                    if(medValue > 0) medValue -= 1;
+                    updateBars();
+                }, 5000);
+                
+                function updateBars(){//for updating the progress bar
+                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
+                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
+                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
+                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
+                }
+
+                $("#eatButton").click(function(){ //for if Makan is clicked
+                    if(eatValue <100){
+                        eatValue +=5;
+                        sleepValue -=1;
+                        playValue -= 1;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
+
+                $("#sleepButton").click(function(){//for if Tidur is clicked
+                    if(sleepValue <100){
+                        eatValue -= 1;
+                        sleepValue += 5;
+                        playValue -= 1;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
+
+                $("#playButton").click(function(){//for if Main is clicked
+                    if(playValue <100){
+                        eatValue -= 1;
+                        sleepValue -= 1;
+                        playValue += 5;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
+
+                $("#medButton").click(function(){//for is Obat is clicked
+                    if(medValue <100){
+                        eatValue -=1;
+                        sleepValue -=1;
+                        playValue -= 1;
+                        medValue += 5;
+                        updateBars();
+                    }
+                });
+                $(".star").click(function(){
+                    // add 1 to the playValue when a star is caught
+                    playValue += 1;
+                    updateBars();
+                }); 
+            });
+
+            $(document).ready(function(){
+                // set initial background size
+                $('body').css('background-size', 'cover');
+                // adjust background size on window resize
+                $(window).resize(function(){
+                    // calculate new background size based on window dimensions
+                    var width = $(window).width();
+                    var height = $(window).height();
+                    var size = Math.max(width, height);
+                    $('body').css('background-size', size + 'px');
+                });
+            });
+
+            $(document).ready(function(){
+                $('#playButton').click(function(){
+                    $('#gameMessage').text('The game is starting...').fadeIn();
+                    setTimeout(function(){
+                        $('#gameMessage').fadeOut(function(){
+                            $('#gameContainer').delay(500).fadeIn();
+                            $('#buttonContainer').delay(500).fadeIn();
+                        });
+                    }, 3000);
+                });
+            });
+
+            $(document).ready(function(){
+                var container = $('#gameContainer');
+                var character = $('#character');
+                var moveAmount = 50; // amount of pixels to move the character
+                var star = $('#star');
+                var starVisible = false;
+                var starTimeout;
+                function showStar(){
+                    starVisible = true;
+                    // generate random values for the star's position
+                    var left = Math.random() * (container.width() - star.width());
+                    var top = Math.random() * (container.height() - star.height());
+                    var containerOffset = container.offset();
+                    var starLeft = containerOffset.left + left;
+                    var starTop = containerOffset.top + top;
+                    // check if the star is going to be outside the container
+                    if(starLeft < containerOffset.left){
+                        starLeft = containerOffset.left;
+                    }
+                    if(starLeft + star.width() > containerOffset.left + container.width()){
+                        starLeft = containerOffset.left + container.width() - star.width();
+                    }
+                    if(starTop < containerOffset.top){
+                        starTop = containerOffset.top;
+                    }
+                    if(starTop + star.height() > containerOffset.top + container.height()){
+                        starTop = containerOffset.top + container.height() - star.height();
+                    }
+                    star.css({ left: starLeft, top: starTop }); // set the star's position
+                    clearTimeout(starTimeout);
+                    star.show();
+                    starTimeout = setTimeout(hideStar, 5000);   
+                }
+                function hideStar(){
+                    starVisible = false;
+                    star.hide();
+                    setTimeout(showStar, 5000);
+                }
+                function checkStar(){
+                    if (starVisible){
+                        // check if the character is overlapping with the star
+                        var charPos = character.offset();
+                        var starPos = star.offset();
+                        if (charPos.left < starPos.left + star.width() &&
+                         charPos.left + character.width() > starPos.left &&
+                         charPos.top < starPos.top + star.height() &&
+                         charPos.top + character.height() > starPos.top){
+                            hideStar();
+                        }
+                    }
+                }
+                starTimeout = setTimeout(showStar, 5000);
+                setInterval(checkStar, 100);
+                $('#upBtn').click(function(){
+                    var topPos = parseInt(character.css('top'));
+                    var newPos = topPos - moveAmount;
+                    if(newPos >= 0){
+                        character.animate({top: newPos}, 'fast');
+                    }
+                    checkStar();
+                });
+                $('#downBtn').click(function(){
+                    var topPos = parseInt(character.css('top'));
+                    var newPos = topPos + moveAmount;
+                    if(newPos + character.height() <= container.height()){
+                        character.animate({top: newPos}, 'fast');
+                    }
+                    checkStar();
+                });
+                $('#leftBtn').click(function(){
+                    var leftPos = parseInt(character.css('left'));
+                    var newPos = leftPos - moveAmount;
+                    if(newPos >= 0){
+                        character.animate({left: newPos}, 'fast');
+                    }
+                    checkStar();
+                });
+                $('#rightBtn').click(function(){
+                    var leftPos = parseInt(character.css('left'));
+                    var newPos = leftPos + moveAmount;
+                    if (newPos + character.width() <= container.width()){
+                        character.animate({left: newPos}, 'fast');
+                    }
+                    checkStar();
+                });
+            });
+
+        </script>
+    </body>
+</html>
