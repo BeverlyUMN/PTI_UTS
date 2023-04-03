@@ -2,18 +2,18 @@
 
 Informasi Kelompok dan Deskripsi Tugas
 1. Beverly Vladislav Tan (00000074964)
-Job desc: Mengerjakan landingpage.php , home.html, dan sleep.html + asset karakter.
+Job desc: Mengerjakan landingpage.php , home.html, dan sleep.html + asset karakter + edit video demo.
 2. Saint Christopher Syhandon (00000075026)
-Job desc: Mengerjakan Makan.html dan sleep.html.
+Job desc: Mengerjakan Makan.html dan sleep.html + video presentasi demo.
 3. Nayla Mutiara Salsabila Bastari (00000075205)
 Jobs desc : Mengerjakan sleep.html dan mencari asset karakter.
 4. Priscillia Desya (00000075267)
-Job desc : Mengerjakan Play.html dan Med.html + background + icon.
+Job desc : Mengerjakan Play.html dan Med.html + background + icon + README.
 
 Informasi Project
-Judul Project : UTS PTI 2022 KELOMPOK 7
-Link GitHub Project: https://github.com/BeverlyUMN/PTI_UTS.git
-Deskripsi Singkat Project:
+- Judul Project : UTS PTI 2022 KELOMPOK 7
+- Link GitHub Project: https://github.com/BeverlyUMN/PTI_UTS.git
+- Deskripsi Singkat Project:
 Project UTS ini adalah membuat aplikasi simulasi kehidupam hewan peliharaan berbasis web dengen HTML, CSS, dan JavaScript.
 Permainan di awali dengan landing page, dimana pemain dapat memilih (select) karakter avatar yang sudah tersedia (Stitch dan Gudetama).
 Pemain juga diminta memasukkan nama pet avatar.
