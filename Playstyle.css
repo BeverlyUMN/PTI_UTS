@@ -52,11 +52,14 @@ body{
     transform: translate(-50%, -50%);
 }
 
-#character img{
+#character{
     position:absolute; 
     left:30%; 
     top:70%; 
-    max-width: 100px; 
+}
+
+#character img{
+    max-width: 100px;
 }
 
 #star{
