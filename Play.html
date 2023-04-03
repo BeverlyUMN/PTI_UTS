@@ -24,7 +24,7 @@
                     <h3>UMNGotcha</h3>
                 </div>          
                 <div class="col">
-                    <h5 class="mt-2">Level 1</h5>
+                    <h5 class="mt-2" id="level"></h5>
                 </div>      
             </div>
             <hr style="border: 2px solid black;">
@@ -65,7 +65,7 @@
             </div>
 
             <div id="gameContainer">
-                <img src="characters/telur.png" id="character">
+                <!-- <img src="characters/telur.png" id="character"> -->
                 <img src="icons/star.png" id="star">
             </div>
 
@@ -108,19 +108,16 @@
                 var params = new URLSearchParams(window.location.search);
                 var petname = params.get('petname'); 
                 $('#halo').text("Halo " + petname);
-            // });
 
-            // $(document).ready(function(){//for progress bar width and percentage
+                document.getElementById('level').textContent = "Level " + level;
+           
                 $('.progress-bar').each(function(){
                     var width = $(this).attr('aria-valuenow');
                     $(this).animate({width: width + '%'}, 1000, function(){
                         $(this).text(width + '%');
                     });
                 });
-            // });
-
-            // $(document).ready(function(){
-                //for the clock and greeting of the game
+            
                 let hour = 0;
                 let minute = 0;
                 let day = 1;
@@ -144,14 +141,12 @@
                         else{
                             greeting = "Good Evening";
                         }
-                        $('#theMessage').text(greeting);
+                        $('#theMessage').text("Day " + day);
                     //for the clock
                     const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                     $('#theHours').text(formattedTime);
                 }, 1000);
-            // });
 
-            // $(document).ready(function(){
                 var eatValue = 50;
                 var sleepValue = 50;
                 var playValue = 50;
@@ -212,9 +207,7 @@
                         updateBars();
                     }
                 });
-            // });
-
-            // $(document).ready(function(){
+            
                 // set initial background size
                 $('body').css('background-size', 'cover');
                 // adjust background size on window resize
@@ -225,9 +218,7 @@
                     var size = Math.max(width, height);
                     $('body').css('background-size', size + 'px');
                 });
-            // });
-
-            // $(document).ready(function(){
+           
                 $('#playButton').click(function(){
                     $('#gameMessage').text('The game is starting...').fadeIn();
                     setTimeout(function(){
@@ -237,9 +228,7 @@
                         });
                     }, 3000);
                 });
-            // });
-
-            // $(document).ready(function(){
+            
                 var container = $('#gameContainer');
                 var character = $('#character');
                 var moveAmount = 50; // amount of pixels to move the character
