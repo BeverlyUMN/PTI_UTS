@@ -214,18 +214,15 @@
 					  checkBars();
 					}, 5000);
 
-					
-	                
 	                function updateBars(){
 	                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
 	                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
 	                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
 	                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
 
-
 						sessionStorage.setItem('eatValue', eatValue);
 						sessionStorage.setItem('sleepValue', sleepValue);
-						sessionStorage.setItem('playValue', playValue);			        
+						sessionStorage.setItem('playValue', playValue);
 						sessionStorage.setItem('medValue', medValue);
 					}
 
@@ -235,24 +232,25 @@
 			        sessionStorage.setItem('day', day);
 			        sessionStorage.setItem('level', level);
 			        sessionStorage.setItem('character', character);
+			        sessionStorage.setItem('petname', petname);
 
 			        $("#eatButton").click(function(){
-		                    const url = 'Makan.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                    const url = 'Makan.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue + '&petname=' +petname;
 					  		window.location.href = url;
 		                });
 
 		                $("#sleepButton").click(function(){
-		                     const url = 'sleep.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                     const url = 'sleep.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue + '&petname=' +petname;
 					  		window.location.href = url;
 		                });
 
 		                $("#playButton").click(function(){
-		                    const url = 'Play.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                    const url = 'Play.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue + '&petname=' +petname;
 					  		window.location.href = url;
 		                });
 
 		                $("#medButton").click(function(){
-		                    const url = 'Med.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                    const url = 'Med.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue + '&petname=' +petname;
 					  		window.location.href = url;
 		                });
 			    }, 1000);

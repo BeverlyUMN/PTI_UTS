@@ -257,6 +257,8 @@
 			        sessionStorage.setItem('character', character);
 			        sessionStorage.setItem('petname', petname);
 
+			        console.log(petname);
+
 
 				    document.getElementById('pet').textContent = greeting + " " + petname;
 
@@ -346,7 +348,7 @@
 			    	sessionStorage.setItem('playValue', playValue);
 			    	sessionStorage.setItem('medValue', medValue);
                 }
-                
+
 				$("#eatButton").click(function(){
                     if(eatValue <100){
 	                        eatValue +=5;
