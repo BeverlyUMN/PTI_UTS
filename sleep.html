@@ -12,7 +12,6 @@
             font-weight: bold;
             margin: 0;
             padding: 0;
-
         }
 
         body {
@@ -114,7 +113,7 @@
                         <button type="button" class="btn btn-success btn-sm btn-md btn-lg btn-xl btn-block" id="eatButton">Eat</button>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-info btn-sm btn-md btn-lg btn-xl btn-block" id="sleepButton" onclick="toggleImage()">Sleep</button>
+                        <button type="button" class="btn btn-info btn-sm btn-md btn-lg btn-xl btn-block" id="sleepButton">Sleep</button>
                     </div>
                 </div>
                 <div class="row">
@@ -196,6 +195,11 @@
                         } else if (level === 3) {
                             $('#tempat').html('<img src="characters/tamaGede.png">');
                         }
+
+                        $("#sleepButton").click(function(){
+                            $('#tempat').html('<img src="characters/tamaBobo.png">').fadeIn(100000);
+                        });
+
                     } else if (character === "stitch"){
                         if (level === 1) {
                             $('#tempat').html('<img src="characters/stitchBayi.png">');
@@ -204,6 +208,10 @@
                         } else if (level === 3) {
                             $('#tempat').html('<img src="characters/stitchGede.png">');
                         }
+
+                        $("#sleepButton").click(function(){
+                            $('#tempat').html('<img src="characters/stitchBobo1.png">').fadeIn(100000);
+                        });
                     }
                     // simpan variabel hour, day, dan level pada session storage
                     sessionStorage.setItem('minute',minute);
@@ -214,7 +222,6 @@
                     sessionStorage.setItem('petname', petname);
 
                     console.log(petname);
-
 
                     document.getElementById('pet').textContent = greeting + " " + petname;
 
@@ -263,6 +270,16 @@
                     checkBars();
                 }, 5000);
 
+                $("#sleepButton").click(function(){
+                    if(sleepValue <100){
+                            eatValue -=1;
+                            sleepValue +=5;
+                            playValue -= 1;
+                            medValue -= 1;
+                            updateBars();
+                    }
+                });
+
                 function checkBars() {
                     if (eatValue == 15) {
                         alert("Warning: your pet is dying! Check his eat bar now!");
@@ -304,65 +321,55 @@
                     sessionStorage.setItem('playValue', playValue);
                     sessionStorage.setItem('medValue', medValue);
                 }
-
-                $("#eatButton").click(function(){
-                    if(eatValue <100){
-                            eatValue +=5;
-                            sleepValue -=1;
-                            playValue -= 1;
-                            medValue -= 1;
-                            updateBars();
-                    }
-                });
             });
 
-    </script>
+                
 
-    <script>
-       function toggleImage() {
-    var img1 = document.getElementById("tempat");
-    var imggdtm = ["tamaBobo.png"]; 
-    var imgstc = ["stitchBobo.jpg"]
-    var button = document.getElementsByTagName("button")[0]; // get the button element
-    button.disabled = true; // disable the button
-    if (character == "gudetama") {    
-        if (img1.style.display === "none") {
-            img1.style.display = "block";
-            imggdtm.style.display = "none";
-        } else {
-            img1.style.display = "none";
-            imggdtm.style.display = "block";
-        }
-        setTimeout(function(){
-            if (img1.style.display === "none") {
-                img1.style.display = "block";
-                imggdtm.style.display = "none";
-            } else {
-                img1.style.display = "none";
-                imggdtm.style.display = "block";
-            }
-            button.disabled = false; // re-enable the button
-        }, 2000);
-    }
-    }else if (character == "stitch") {
-        if (img1.style.display === "none") {
-            img1.style.display = "block";
-            imgstc.style.display = "none";
-        } else {
-            img1.style.display = "none";
-            imgstc.style.display = "block";
-        }
-        setTimeout(function(){
-            if (img1.style.display === "none") {
-                img1.style.display = "block";
-                imgstc.style.display = "none";
-            } else {
-                img1.style.display = "none";
-                imgstc.style.display = "block";
-            }
-            button.disabled = false; // re-enable the button
-        }, 2000);
-    }
+            // function toggleImage() {
+            //     var urlParams = new URLSearchParams(window.location.search);
+            //     var character = urlParams.get('character');
+            //     var imggdtm = ["tamaBobo.png"];
+            //     var imgstc = ["stitchBobo.jpg"];
+            //     var button = document.getElementsByTagName("button")[0]; // get the button element
+            //     button.disabled = true; // disable the button
+            //     if (character == "gudetama") {    
+            //         if (img1.style.display === "none") {
+            //             img1.style.display = "block";
+            //             imggdtm.style.display = "none";
+            //         } else {
+            //             img1.style.display = "none";
+            //             imggdtm.style.display = "block";
+            //         }
+            //         setTimeout(function(){
+            //             if (img1.style.display === "none") {
+            //                 img1.style.display = "block";
+            //                 imggdtm.style.display = "none";
+            //             } else {
+            //                 img1.style.display = "none";
+            //                 imggdtm.style.display = "block";
+            //             }
+            //             button.disabled = false; // re-enable the button
+            //         }, 2000);
+            //     }else if (character == "stitch") {
+            //         if (img1.style.display === "none") {
+            //             img1.style.display = "block";
+            //             imgstc.style.display = "none";
+            //         } else {
+            //             img1.style.display = "none";
+            //             imgstc.style.display = "block";
+            //         }
+            //         setTimeout(function(){
+            //             if (img1.style.display === "none") {
+            //                 img1.style.display = "block";
+            //                 imgstc.style.display = "none";
+            //             } else {
+            //                 img1.style.display = "none";
+            //                 imgstc.style.display = "block";
+            //             }
+            //             button.disabled = false; // re-enable the button
+            //         }, 2000);
+            //     }
+            // }
     </script>
 </body>
 </html>
