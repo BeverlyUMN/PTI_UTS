@@ -1,64 +1,73 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Sleep Page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    </head>
-    	<style type="text/css">
-    		* {
-    			color: white;
-    			font-weight: bold;
-    			margin: 0;
-    			padding: 0;
-    		}
+<head>
+    <title>Sleep</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+    <style>
+        * {
+            color: white;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
 
-    		body {
-    			min-height: 700px;
-    		}
+        }
 
-    		#allButtons button{
-			    width:25%;
-			    margin: 5px;
-			}
+        body {
+            min-height: 800px;
+        }
 
-			#progressBar .progress{
-			    width:100%;
-			}
+        #allButtons button{
+            width:25%;
+            margin: 5px;
+        }
 
-			#progressBar img{
-			    width: 40x;
-			    height: 40px;
-			    margin-right: 10px;
-			}
+        #progressBar .progress{
+            width:100%;
+        }
 
-			#tempat {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 290px;
-			}
+        #progressBar img{
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
 
-			#tempat img {
-				max-width: 100px;
-			}
-    	</style>
-    <body>
-        <div class="container p2 text-center">
+        #tempat {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 290px;
+        }
+
+        #tempat img {
+            max-width: 100px;
+        }
+
+        a img {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: flex-start;
+        }
+    </style>
+<body>
+    <div class="container p2 text-center">
             <div class="row mt-2">
-				<div class="col">
-					<h5 class="mt-2" id="pet"></h5>
-				</div>
-				<div class="col">
-					<h3>UMN Gotcha</h3>
-				</div>
-				<div class="col">
-					<h5 class="mt-2" id="level"></h5>
-				</div>
-			</div>
+                <a href="home.html" id="back"><img src="icons/house.png"></a>
+                <div class="col">
+                    <h5 class="mt-2" id="pet"></h5>
+                </div>
+                <div class="col">
+                    <h3>UMN Gotcha</h3>
+                </div>
+                <div class="col">
+                    <h5 class="mt-2" id="level"></h5>
+                </div>
+            </div>
 
-			<hr style="border: 2px solid black;">
+            <hr style="border: 2px solid black;">
 
             <div id="progressBar">
                 <div class="row p-1">
@@ -89,6 +98,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
             <div id="theGreetings">
                 <h3 class="mt-3 mb-3" id="theMessage"></h3>
@@ -98,22 +108,13 @@
             <div id="tempat">
             </div>
 
-          </div class="mt-1">
-            <img src="imgUTS/karakter/play.gif" id="image">
-            <div class="row">
-              <div class="col">
-            </div>
-          </div>
-
-        <div>
-
             <div id="allButtons">
                 <div class="row">
                     <div class="col">
                         <button type="button" class="btn btn-success btn-sm btn-md btn-lg btn-xl btn-block" id="eatButton">Eat</button>
                     </div>
                     <div class="col">
-                        <button type="button" class="btn btn-info btn-sm btn-md btn-lg btn-xl btn-block" id="sleepButton" onclick="changeImage()">Sleep</button>
+                        <button type="button" class="btn btn-info btn-sm btn-md btn-lg btn-xl btn-block" id="sleepButton" onclick="toggleImage()">Sleep</button>
                     </div>
                 </div>
                 <div class="row">
@@ -126,16 +127,9 @@
                 </div>
             </div>
         </div>
-        <script>
-          function changeImage()
-          {
-            var img = document.getElementById("image");
-            img.src = 'imgUTS/karakter/sleep.gif';
-          }
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function(){
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
                 $('.progress-bar').each(function(){
                     var width = $(this).attr('aria-valuenow');
                     $(this).animate({width: width + '%'}, 1000, function(){
@@ -145,145 +139,230 @@
             });
 
             $(document).ready(function() {
-			    let hour = 0;
-			    let minute = 0;
-			    let day = 1;
-			    let level = 1; // set level awal ke 1
-			    setInterval(() => {
-			        minute++;
-			        if (minute >= 60) {
-			            hour++;
-			            minute = 0;
-			        }
-			        if (hour >= 24) {
-			            day++;
-			            hour = 0;
+                var urlParams = new URLSearchParams(window.location.search);
+                var minute = parseInt(urlParams.get('minute'));
+                var hour = parseInt(urlParams.get('hour'));
+                var day = parseInt(urlParams.get('day'));
+                var level = parseInt(urlParams.get('level'));
+                var character = urlParams.get('character');
+                var petname = urlParams.get('petname');
 
-			            // tambahkan kondisi untuk mengisi variabel level
-			        	if (day === 1) {
-			                level = 2;
-			       		 } else if (day === 2) {
-			                level = 3;
-			            }
-			        }
+                setInterval(() => {
+                    minute++;
+                    if (minute >= 60) {
+                        hour++;
+                        minute = 0;
+                    }
+                    if (hour >= 24) {
+                        day++;
+                        hour = 0;
 
-			        document.getElementById('level').textContent = "Level " + level;
+                        // tambahkan kondisi untuk mengisi variabel level
+                        if (day === 1) {
+                            level = 2;
+                         } else if (day === 2) {
+                            level = 3;
+                        }
+                    }
 
-			        let greeting;
-			        if (hour >= 0 && hour < 12) {
-			            greeting = "Good Morning";
-			        } else if (hour >= 12 && hour < 18) {
-			            greeting = "Good Afternoon";
-			        } else {
-			            greeting = "Good Evening";
-			        }
-			        
-				    var params = new URLSearchParams(window.location.search);
-				    var petname = params.get('petname');
-				    document.getElementById('pet').textContent = greeting + " " + petname;
+                    document.getElementById('level').textContent = "Level " + level;
 
-			        if (hour >= 0 && hour < 15) {
-			            $('body').css('background', 'url(imgUTS/background/bedroom.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
-			        } else if (hour >= 15 && hour < 24) {
-			            $('body').css('background', 'url(backgrounds/coba.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
-			        }
+                    let greeting;
+                    if (hour >= 0 && hour < 12) {
+                        greeting = "Good Morning";
+                    } else if (hour >= 12 && hour < 18) {
+                        greeting = "Good Afternoon";
+                    } else {
+                        greeting = "Good Evening";
+                    }
 
-			        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-			        $('#theHours').text(formattedTime);
-			        $('#theMessage').text("Day " + day);
-			        
-			        var character = params.get('character');
-			        console.log(character);
-			        if (character === "gudetama") {
-			        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
-				        if (level === 1) {
-				            $('#tempat').html('<img src="characters/tamaBayi.png">');
-				        } else if (level === 2) {
-				            $('#tempat').html('<img src="characters/tamaAnak.png">');
-				        } else if (level === 3) {
-				            $('#tempat').html('<img src="characters/tamaGede.png">');
-				        }
-			        } else if (character === "stitch"){
-			        	if (level === 1) {
-				            $('#tempat').html('<img src="characters/stitchBayi.png">');
-				        } else if (level === 2) {
-				            $('#tempat').html('<img src="characters/stitchAnak.png">');
-				        } else if (level === 3) {
-				            $('#tempat').html('<img src="characters/stitchGede.png">');
-				        }
-			        }
-			        // simpan variabel hour, day, dan level pada session storage
-			        sessionStorage.setItem('hour', hour);
-			        sessionStorage.setItem('day', day);
-			        sessionStorage.setItem('level', level);
-			        sessionStorage.setItem('character', character);
-			    }, 1000);
-			});
+                    if (hour >= 0 && hour < 15) {
+                        $('body').css('background', 'url(backgrounds/ruangtidur.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+                    } else if (hour >= 15 && hour < 24) {
+                        $('body').css('background', 'url(backgrounds/ruangtidur.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+                    }
 
+                    const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    $('#theHours').text(formattedTime);
+                    $('#theMessage').text("Day " + day);
+                    
+                    console.log(character);
+                    if (character === "gudetama") {
+                        // tambahkan kondisi untuk menampilkan gambar sesuai dengan level
+                        if (level === 1) {
+                            $('#tempat').html('<img src="characters/tamaBayi.png">');
+                        } else if (level === 2) {
+                            $('#tempat').html('<img src="characters/tamaAnak.png">');
+                        } else if (level === 3) {
+                            $('#tempat').html('<img src="characters/tamaGede.png">');
+                        }
+                    } else if (character === "stitch"){
+                        if (level === 1) {
+                            $('#tempat').html('<img src="characters/stitchBayi.png">');
+                        } else if (level === 2) {
+                            $('#tempat').html('<img src="characters/stitchAnak.png">');
+                        } else if (level === 3) {
+                            $('#tempat').html('<img src="characters/stitchGede.png">');
+                        }
+                    }
+                    // simpan variabel hour, day, dan level pada session storage
+                    sessionStorage.setItem('minute',minute);
+                    sessionStorage.setItem('hour', hour);
+                    sessionStorage.setItem('day', day);
+                    sessionStorage.setItem('level', level);
+                    sessionStorage.setItem('character', character);
+                    sessionStorage.setItem('petname', petname);
+
+                    console.log(petname);
+
+
+                    document.getElementById('pet').textContent = greeting + " " + petname;
+
+                    $(document).ready(function() {
+                      // Ambil nilai dari sessionStorage
+                      const minute = sessionStorage.getItem('minute');
+                      const hour = sessionStorage.getItem('hour');
+                      const day = sessionStorage.getItem('day');
+                      const level = sessionStorage.getItem('level');
+                      const character = sessionStorage.getItem('character');
+                      const eatValue = sessionStorage.getItem('eatValue');
+                      const sleepValue = sessionStorage.getItem('sleepValue');
+                      const playValue = sessionStorage.getItem('playValue');
+                      const medValue = sessionStorage.getItem('medValue');
+                      const petname = sessionStorage.getItem('petname');
+                      
+
+                    $("#back").click(function(){
+                            const url = 'home.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
+                            window.location.href = url;
+                        });
+                    });
+                }, 1000);
+            });
 
             $(document).ready(function(){
-                var eatValue = 50;
-                var sleepValue = 50;
-                var playValue = 50;
-                var medValue = 50;
+                var urlParams = new URLSearchParams(window.location.search);
+                var eatValue = parseInt(urlParams.get('eatValue'));
+                var sleepValue = parseInt(urlParams.get('sleepValue'));
+                var playValue = parseInt(urlParams.get('playValue'));
+                var medValue = parseInt(urlParams.get('medValue'));
+                updateBars();
+                console.log(eatValue);
+                console.log(sleepValue);
+                console.log(playValue);
+                console.log(medValue);
                 updateBars();
                 // decrease the values of each progress bar every 2 seconds
+
                 setInterval(function(){
                     if (eatValue > 0) eatValue -= 1;
                     if (sleepValue > 0) sleepValue -= 1;
                     if (playValue > 0) playValue -= 1;
                     if (medValue > 0) medValue -= 1;
                     updateBars();
+                    checkBars();
                 }, 5000);
+
+                function checkBars() {
+                    if (eatValue == 15) {
+                        alert("Warning: your pet is dying! Check his eat bar now!");
+                    } else if (sleepValue == 15) {
+                        alert("Warning: your pet is dying! Check his sleep bar now!");
+                    } else if (playValue == 15) {
+                        alert("Warning: your pet is dying! Check his play bar now!");
+                    } else if (medValue == 15) {
+                        alert("Warning: your pet is dying! Check his med bar now!");
+                    }
+
+                    if (eatValue == 0) {
+                        alert("Oh no! your pet is die because his starving :(")
+                        alert("GAME OVER!");
+                        window.location.href = "landingpage.php";
+                    } else if (sleepValue == 0) {
+                        alert("Oh no! your pet is die because of his insomnia :(")
+                        alert("GAME OVER!");
+                        window.location.href = "landingpage.php";
+                    } else if (playValue == 0) {
+                        alert("Oh no! your pet is die because never play with you :(")
+                        alert("GAME OVER!");
+                        window.location.href = "landingpage.php";
+                    } else if (medValue == 0) {
+                        alert("Oh no! your pet is die because he is sick :(")
+                        alert("GAME OVER!");
+                        window.location.href = "landingpage.php";
+                    }
+                }
                 
                 function updateBars(){
                     $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
                     $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
                     $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
                     $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
+
+                    sessionStorage.setItem('eatValue', eatValue);
+                    sessionStorage.setItem('sleepValue', sleepValue);
+                    sessionStorage.setItem('playValue', playValue);
+                    sessionStorage.setItem('medValue', medValue);
                 }
 
                 $("#eatButton").click(function(){
                     if(eatValue <100){
-                        eatValue +=5;
-                        sleepValue -=1;
-                        playValue -= 1;
-                        medValue -= 1;
-                        updateBars();
-                    }
-                });
-
-                $("#sleepButton").click(function(){
-                    if(sleepValue <100){
-                        eatValue -= 1;
-                        sleepValue += 5;
-                        playValue -= 1;
-                        medValue -= 1;
-                        updateBars();
-                    }
-                });
-
-                $("#playButton").click(function(){
-                    if(playValue <100){
-                        eatValue -= 1;
-                        sleepValue -= 1;
-                        playValue += 5;
-                        medValue -= 1;
-                        updateBars();
-                    }
-                });
-
-                $("#medButton").click(function(){
-                    if(medValue <100){
-                        eatValue -=1;
-                        sleepValue -=1;
-                        playValue -= 1;
-                        medValue += 5;
-                        updateBars();
+                            eatValue +=5;
+                            sleepValue -=1;
+                            playValue -= 1;
+                            medValue -= 1;
+                            updateBars();
                     }
                 });
             });
 
-        </script>
-    </body>
+    </script>
+
+    <script>
+       function toggleImage() {
+    var img1 = document.getElementById("tempat");
+    var imggdtm = ["tamaBobo.png"]; 
+    var imgstc = ["stitchBobo.jpg"]
+    var button = document.getElementsByTagName("button")[0]; // get the button element
+    button.disabled = true; // disable the button
+    if (character == "gudetama") {    
+        if (img1.style.display === "none") {
+            img1.style.display = "block";
+            imggdtm.style.display = "none";
+        } else {
+            img1.style.display = "none";
+            imggdtm.style.display = "block";
+        }
+        setTimeout(function(){
+            if (img1.style.display === "none") {
+                img1.style.display = "block";
+                imggdtm.style.display = "none";
+            } else {
+                img1.style.display = "none";
+                imggdtm.style.display = "block";
+            }
+            button.disabled = false; // re-enable the button
+        }, 2000);
+    }
+    }else if (character == "stitch") {
+        if (img1.style.display === "none") {
+            img1.style.display = "block";
+            imgstc.style.display = "none";
+        } else {
+            img1.style.display = "none";
+            imgstc.style.display = "block";
+        }
+        setTimeout(function(){
+            if (img1.style.display === "none") {
+                img1.style.display = "block";
+                imgstc.style.display = "none";
+            } else {
+                img1.style.display = "none";
+                imgstc.style.display = "block";
+            }
+            button.disabled = false; // re-enable the button
+        }, 2000);
+    }
+    </script>
+</body>
 </html>
