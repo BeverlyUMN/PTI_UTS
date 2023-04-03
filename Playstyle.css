@@ -1,0 +1,86 @@
+#allButtons button{
+    width:25%;
+    margin: 5px;
+}
+
+#progressBar .progress{
+    width:100%;
+}
+
+#progressBar img{
+    width: 40x;
+    height: 40px;
+    margin-right: 10px;
+}
+
+body{
+    background-image: url(backgrounds/gamebg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#gameMessage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color:transparent;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    font-family: Verdana;
+    font-weight: bold;
+    color: yellow;
+}
+
+#gameContainer{
+    display:none;
+    width: 70%;
+    height: 350px;
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+#buttonContainer{
+    display: none;
+    position:absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#character{
+    position:absolute; 
+    left:30%; 
+    top:70%; 
+    width: 68px; 
+    height: 100px;
+}
+
+#star{
+    position: fixed;
+    width: 40px;
+    height: 40px;
+}
+
+.dirBtn{
+    width: 50px;
+    height: 30px;
+    margin: 5px;
+    margin-left: 30px;
+    border-radius: 5px;
+    background-color: aliceblue;
+    border: 2px solid darkblue;
+}
+
+.btnText{
+    display: block;
+    font-family: Verdana;
+    text-align: center;
+    font-size: 12px;
+}
+
+  
