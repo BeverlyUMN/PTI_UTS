@@ -197,75 +197,110 @@
 				            $('#tempat').html('<img src="characters/stitchGede.png">');
 				        }
 			        }
-
-			        var eatValue = "50";
-	                var sleepValue = "50";
-	                var playValue = "50";
-	                var medValue = "50";
-	                updateBars();
-	                // decrease the values of each progress bar every 2 seconds
-
-	                setInterval(function(){
-					  if (eatValue > 0) eatValue -= 1;
-					  if (sleepValue > 0) sleepValue -= 1;
-					  if (playValue > 0) playValue -= 1;
-					  if (medValue > 0) medValue -= 1;
-					  updateBars();
-					  checkBars();
-					}, 5000);
-
-					function checkBars() {
-					    if (eatValue == 15 || sleepValue == 15 || playValue == 15 || medValue == 15) {
-					        alert("Warning: your pet is dying! Check his condition now!");
-					    }
-					    if (eatValue <= 0 || sleepValue <= 0 || playValue <= 0 || medValue <= 0) {
-					    	alert("Oh no! your pet is die.")
-					    	alert("GAME OVER!");
-					        window.location.href = "landingpage.php";
-					    }
-					}
-	                
-	                function updateBars(){
-	                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
-	                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
-	                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
-	                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
-
-
-						sessionStorage.setItem('eatValue', eatValue);
-						sessionStorage.setItem('sleepValue', sleepValue);
-						sessionStorage.setItem('playValue', playValue);			        
-						sessionStorage.setItem('medValue', medValue);
-					}
-
 			        // simpan variabel hour, day, dan level pada session storage
 			        sessionStorage.setItem('minute',minute);
 			        sessionStorage.setItem('hour', hour);
 			        sessionStorage.setItem('day', day);
 			        sessionStorage.setItem('level', level);
 			        sessionStorage.setItem('character', character);
+			        sessionStorage.setItem('petname', petname);
 
-			        $("#eatButton").click(function(){
-		                    const url = 'Makan.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+			        $(document).ready(function() {
+					  // Ambil nilai dari sessionStorage
+					  const minute = sessionStorage.getItem('minute');
+					  const hour = sessionStorage.getItem('hour');
+					  const day = sessionStorage.getItem('day');
+					  const level = sessionStorage.getItem('level');
+					  const character = sessionStorage.getItem('character');
+                	  const eatValue = sessionStorage.getItem('eatValue');
+					  const sleepValue = sessionStorage.getItem('sleepValue');
+					  const playValue = sessionStorage.getItem('playValue');
+					  const medValue = sessionStorage.getItem('medValue');
+					  const petname = sessionStorage.getItem('petname');
+					  
+
+					  $("#eatButton").click(function(){
+		                    const url = 'Makan.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
 					  		window.location.href = url;
 		                });
 
 		                $("#sleepButton").click(function(){
-		                     const url = 'sleep.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                     const url = 'sleep.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
 					  		window.location.href = url;
 		                });
 
 		                $("#playButton").click(function(){
-		                    const url = 'Play.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                    const url = 'Play.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
 					  		window.location.href = url;
 		                });
 
 		                $("#medButton").click(function(){
-		                    const url = 'Med.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+		                    const url = 'Med.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
 					  		window.location.href = url;
 		                });
+					});
 			    }, 1000);
 			});
+
+            $(document).ready(function(){
+                var eatValue = 50;
+                var sleepValue = 50;
+                var playValue = 50;
+                var medValue = 50;
+                updateBars();
+                // decrease the values of each progress bar every 2 seconds
+
+                setInterval(function(){
+				    if (eatValue > 0) eatValue -= 1;
+				    if (sleepValue > 0) sleepValue -= 1;
+				    if (playValue > 0) playValue -= 1;
+				    if (medValue > 0) medValue -= 1;
+				    updateBars();
+				    checkBars();
+				}, 5000);
+
+				function checkBars() {
+				    if (eatValue == 15) {
+				        alert("Warning: your pet is dying! Check his eat bar now!");
+				    } else if (sleepValue == 15) {
+				        alert("Warning: your pet is dying! Check his sleep bar now!");
+				    } else if (playValue == 15) {
+				        alert("Warning: your pet is dying! Check his play bar now!");
+				    } else if (medValue == 15) {
+				        alert("Warning: your pet is dying! Check his med bar now!");
+				    }
+
+				    if (eatValue == 0) {
+				    	alert("Oh no! your pet is die because his starving :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    } else if (sleepValue == 0) {
+				    	alert("Oh no! your pet is die because of his insomnia :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    } else if (playValue == 0) {
+				    	alert("Oh no! your pet is die because never play with you :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    } else if (medValue == 0) {
+				    	alert("Oh no! your pet is die because he is sick :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    }
+				}
+                
+                function updateBars(){
+                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
+                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
+                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
+                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
+
+                    sessionStorage.setItem('eatValue', eatValue);
+			    	sessionStorage.setItem('sleepValue', sleepValue);
+			    	sessionStorage.setItem('playValue', playValue);
+			    	sessionStorage.setItem('medValue', medValue);
+                }
+            });
 
         </script>
     </body>

@@ -85,10 +85,18 @@
 			opacity: 0;
 			transition: opacity 1s linear;
 		}
+
+		a img {
+			width: 40px;
+			height: 40px;
+			display: flex;
+			justify-content: flex-start;
+		}
 	</style>
 <body>
 	<div class="container p2 text-center">
             <div class="row mt-2">
+            	<a href="home.html" id="back"><img src="icons/house.png"></a>
 				<div class="col">
 					<h5 class="mt-2" id="pet"></h5>
 				</div>
@@ -165,186 +173,195 @@
         </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('.progress-bar').each(function(){
-                var width = $(this).attr('aria-valuenow');
-                $(this).animate({width: width + '%'}, 1000, function(){
-                    $(this).text(width + '%');
+    	$(document).ready(function(){
+                $('.progress-bar').each(function(){
+                    var width = $(this).attr('aria-valuenow');
+                    $(this).animate({width: width + '%'}, 1000, function(){
+                        $(this).text(width + '%');
+                    });
                 });
             });
-        });
 
-        $(document).ready(function() {
-		    var minute = 0;
-		    var hour = 0;
-		    var day = 1;
-		    var level = 1;
-		    var character = "";
+            $(document).ready(function() {
+			    var urlParams = new URLSearchParams(window.location.search);
+			    var minute = parseInt(urlParams.get('minute'));
+			    var hour = parseInt(urlParams.get('hour'));
+			    var day = parseInt(urlParams.get('day'));
+			    var level = parseInt(urlParams.get('level'));
+			    var character = urlParams.get('character');
+			    var petname = urlParams.get('petname');
 
-		    // Mengambil nilai dari localStorage atau sessionStorage
-		    if (sessionStorage.getItem('hour') !== null) {
-		        hour = parseInt(sessionStorage.getItem('hour'));
-		    }
-		    if (sessionStorage.getItem('day') !== null) {
-		        day = parseInt(sessionStorage.getItem('day'));
-		    }
-		    if (sessionStorage.getItem('level') !== null) {
-		        level = parseInt(sessionStorage.getItem('level'));
-		    }
-		    if (sessionStorage.getItem('character') !== null) {
-		        character = sessionStorage.getItem('character');
-		    }
-
-		    // Jika nilai di localStorage kosong, mengambil dari parameter URL menggunakan objek URLSearchParams
-		    if (hour === 0 && day === 1 && level === 1 && character === "") {
-		        var urlParams = new URLSearchParams(window.location.search);
-		        hour = parseInt(urlParams.get('hour'));
-		        day = parseInt(urlParams.get('day'));
-		        level = parseInt(urlParams.get('level'));
-		        character = urlParams.get('character');
-		    }
-
-		    setInterval(() => {
-		        minute++;
-		        if (minute >= 60) {
-		            hour++;
-		            minute = 0;
-		        }
-		        if (hour >= 24) {
-		            day++;
-		            hour = 0;
-
-		            // tambahkan kondisi untuk mengisi variabel level
-		        	if (day === 1) {
-		                level = 2;
-		       		 } else if (day === 2) {
-		                level = 3;
-		            }
-		        }
-
-		        document.getElementById('level').textContent = "Level " + level;
-
-		        let greeting;
-		        if (hour >= 0 && hour < 12) {
-		            greeting = "Good Morning";
-		        } else if (hour >= 12 && hour < 18) {
-		            greeting = "Good Afternoon";
-		        } else {
-		            greeting = "Good Evening";
-		        }
-		        
-			    var params = new URLSearchParams(window.location.search);
-			    var petname = params.get('petname');
-			    document.getElementById('pet').textContent = greeting + " " + petname;
-
-		        if (hour >= 0 && hour < 15) {
-		            $('body').css('background', 'url(backgrounds/ruangmakan.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
-		        } else if (hour >= 15 && hour < 24) {
-		            $('body').css('background', 'url(backgrounds/ruangmakan.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
-		        }
-
-		        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-		        $('#theHours').text(formattedTime);
-		        $('#theMessage').text("Day " + day);
-		        
-		        var character = params.get('character');
-		        console.log(character);
-		        if (character === "gudetama") {
-		        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
-			        if (level === 1) {
-			            $('#tempat').html('<img src="characters/tamaBayi.png">');
-			        } else if (level === 2) {
-			            $('#tempat').html('<img src="characters/tamaAnak.png">');
-			        } else if (level === 3) {
-			            $('#tempat').html('<img src="characters/tamaGede.png">');
+			    setInterval(() => {
+			        minute++;
+			        if (minute >= 60) {
+			            hour++;
+			            minute = 0;
 			        }
-		        } else if (character === "stitch"){
-		        	if (level === 1) {
-			            $('#tempat').html('<img src="characters/stitchBayi.png">');
-			        } else if (level === 2) {
-			            $('#tempat').html('<img src="characters/stitchAnak.png">');
-			        } else if (level === 3) {
-			            $('#tempat').html('<img src="characters/stitchGede.png">');
+			        if (hour >= 24) {
+			            day++;
+			            hour = 0;
+
+			            // tambahkan kondisi untuk mengisi variabel level
+			        	if (day === 1) {
+			                level = 2;
+			       		 } else if (day === 2) {
+			                level = 3;
+			            }
 			        }
-		        }
-		    }, 1000);
-		});
+
+			        document.getElementById('level').textContent = "Level " + level;
+
+			        let greeting;
+			        if (hour >= 0 && hour < 12) {
+			            greeting = "Good Morning";
+			        } else if (hour >= 12 && hour < 18) {
+			            greeting = "Good Afternoon";
+			        } else {
+			            greeting = "Good Evening";
+			        }
+
+			        if (hour >= 0 && hour < 15) {
+			            $('body').css('background', 'url(backgrounds/coba1.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+			        } else if (hour >= 15 && hour < 24) {
+			            $('body').css('background', 'url(backgrounds/coba.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+			        }
+
+			        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+			        $('#theHours').text(formattedTime);
+			        $('#theMessage').text("Day " + day);
+			        
+			        console.log(character);
+			        if (character === "gudetama") {
+			        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
+				        if (level === 1) {
+				            $('#tempat').html('<img src="characters/tamaBayi.png">');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/tamaAnak.png">');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/tamaGede.png">');
+				        }
+			        } else if (character === "stitch"){
+			        	if (level === 1) {
+				            $('#tempat').html('<img src="characters/stitchBayi.png">');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/stitchAnak.png">');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/stitchGede.png">');
+				        }
+			        }
+			        // simpan variabel hour, day, dan level pada session storage
+			        sessionStorage.setItem('minute',minute);
+			        sessionStorage.setItem('hour', hour);
+			        sessionStorage.setItem('day', day);
+			        sessionStorage.setItem('level', level);
+			        sessionStorage.setItem('character', character);
+			        sessionStorage.setItem('petname', petname);
 
 
-        $(document).ready(function(){
-            var eatValue = 50;
-            var sleepValue = 50;
-            var playValue = 50;
-            var medValue = 50;
-            updateBars();
-            // decrease the values of each progress bar every 2 seconds
-            setInterval(function(){
-				   if (eatValue > 0) eatValue -= 1;
-				   if (sleepValue > 0) sleepValue -= 1;
-				   if (playValue > 0) playValue -= 1;
-				   if (medValue > 0) medValue -= 1;
-				   updateBars();
-				   checkBars();
-			}, 5000);
+				    document.getElementById('pet').textContent = greeting + " " + petname;
 
-			function checkBars() {
-				if (eatValue < 15 || sleepValue < 15 || playValue < 15 || medValue < 15) {
-				    alert("Warning: your pet is dying! Check his condition now!");
+			        $(document).ready(function() {
+					  // Ambil nilai dari sessionStorage
+					  const minute = sessionStorage.getItem('minute');
+					  const hour = sessionStorage.getItem('hour');
+					  const day = sessionStorage.getItem('day');
+					  const level = sessionStorage.getItem('level');
+					  const character = sessionStorage.getItem('character');
+                	  const eatValue = sessionStorage.getItem('eatValue');
+					  const sleepValue = sessionStorage.getItem('sleepValue');
+					  const playValue = sessionStorage.getItem('playValue');
+					  const medValue = sessionStorage.getItem('medValue');
+					  const petname = sessionStorage.getItem('petname');
+					  
+
+					  $("#back").click(function(){
+		                    const url = 'home.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
+					  		window.location.href = url;
+		                });
+					  $("#eatButton").click(function(){
+		                    
+		                });
+
+		                $("#sleepButton").click(function(){
+		                     
+		                });
+
+		                $("#playButton").click(function(){
+		                    
+		                });
+
+		                $("#medButton").click(function(){
+		                    
+		                });
+					});
+			    }, 1000);
+			});
+
+            $(document).ready(function(){
+                var urlParams = new URLSearchParams(window.location.search);
+			    var eatValue = parseInt(urlParams.get('eatValue'));
+			    var sleepValue = parseInt(urlParams.get('sleepValue'));
+			    var playValue = parseInt(urlParams.get('playValue'));
+			    var medValue = parseInt(urlParams.get('medValue'));
+			    updateBars();
+			    console.log(eatValue);
+			    console.log(sleepValue);
+			    console.log(playValue);
+			    console.log(medValue);
+                updateBars();
+                // decrease the values of each progress bar every 2 seconds
+
+                setInterval(function(){
+				    if (eatValue > 0) eatValue -= 1;
+				    if (sleepValue > 0) sleepValue -= 1;
+				    if (playValue > 0) playValue -= 1;
+				    if (medValue > 0) medValue -= 1;
+				    updateBars();
+				    checkBars();
+				}, 5000);
+
+				function checkBars() {
+				    if (eatValue == 15) {
+				        alert("Warning: your pet is dying! Check his eat bar now!");
+				    } else if (sleepValue == 15) {
+				        alert("Warning: your pet is dying! Check his sleep bar now!");
+				    } else if (playValue == 15) {
+				        alert("Warning: your pet is dying! Check his play bar now!");
+				    } else if (medValue == 15) {
+				        alert("Warning: your pet is dying! Check his med bar now!");
+				    }
+
+				    if (eatValue == 0) {
+				    	alert("Oh no! your pet is die because his starving :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    } else if (sleepValue == 0) {
+				    	alert("Oh no! your pet is die because of his insomnia :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    } else if (playValue == 0) {
+				    	alert("Oh no! your pet is die because never play with you :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    } else if (medValue == 0) {
+				    	alert("Oh no! your pet is die because he is sick :(")
+				    	alert("GAME OVER!");
+				        window.location.href = "landingpage.php";
+				    }
 				}
-				if (eatValue <= 0 || sleepValue <= 0 || playValue <= 0 || medValue <= 0) {
-				    alert("Oh no! your pet is die.")
-				    alert("GAME OVER!");
-				    window.location.href = "landingpage.php";
-				}
-			}
-            
-            function updateBars(){
-                $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
-                $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
-                $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
-                $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
-            }
+                
+                function updateBars(){
+                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
+                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
+                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
+                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
 
-            $("#eatButton").click(function(){
-                if(eatValue <100){
-                    eatValue +=5;
-                    sleepValue -=1;
-                    playValue -= 1;
-                    medValue -= 1;
-                    updateBars();
+                    sessionStorage.setItem('eatValue', eatValue);
+			    	sessionStorage.setItem('sleepValue', sleepValue);
+			    	sessionStorage.setItem('playValue', playValue);
+			    	sessionStorage.setItem('medValue', medValue);
                 }
             });
-
-            $("#sleepButton").click(function(){
-                if(sleepValue <100){
-                    eatValue -= 1;
-                    sleepValue += 5;
-                    playValue -= 1;
-                    medValue -= 1;
-                    updateBars();
-                }
-            });
-
-            $("#playButton").click(function(){
-                if(playValue <100){
-                    eatValue -= 1;
-                    sleepValue -= 1;
-                    playValue += 5;
-                    medValue -= 1;
-                    updateBars();
-                }
-            });
-
-            $("#medButton").click(function(){
-                if(medValue <100){
-                    eatValue -=1;
-                    sleepValue -=1;
-                    playValue -= 1;
-                    medValue += 5;
-                    updateBars();
-                }
-            });
-        });
 
     </script>
 
