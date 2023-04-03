@@ -197,77 +197,75 @@
 				            $('#tempat').html('<img src="characters/stitchGede.png">');
 				        }
 			        }
+
+			        var eatValue = "50";
+	                var sleepValue = "50";
+	                var playValue = "50";
+	                var medValue = "50";
+	                updateBars();
+	                // decrease the values of each progress bar every 2 seconds
+
+	                setInterval(function(){
+					  if (eatValue > 0) eatValue -= 1;
+					  if (sleepValue > 0) sleepValue -= 1;
+					  if (playValue > 0) playValue -= 1;
+					  if (medValue > 0) medValue -= 1;
+					  updateBars();
+					  checkBars();
+					}, 5000);
+
+					function checkBars() {
+					    if (eatValue < 15 || sleepValue < 15 || playValue < 15 || medValue < 15) {
+					        alert("Warning: your pet is dying! Check his condition now!");
+					    }
+					    if (eatValue <= 0 || sleepValue <= 0 || playValue <= 0 || medValue <= 0) {
+					    	alert("Oh no! your pet is die.")
+					    	alert("GAME OVER!");
+					        window.location.href = "landingpage.php";
+					    }
+					}
+	                
+	                function updateBars(){
+	                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
+	                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
+	                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
+	                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
+
+
+						sessionStorage.setItem('eatValue', eatValue);
+						sessionStorage.setItem('sleepValue', sleepValue);
+						sessionStorage.setItem('playValue', playValue);			        
+						sessionStorage.setItem('medValue', medValue);
+					}
+
 			        // simpan variabel hour, day, dan level pada session storage
+			        sessionStorage.setItem('minute',minute);
 			        sessionStorage.setItem('hour', hour);
 			        sessionStorage.setItem('day', day);
 			        sessionStorage.setItem('level', level);
 			        sessionStorage.setItem('character', character);
+
+			        $("#eatButton").click(function(){
+		                    const url = 'Makan.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+					  		window.location.href = url;
+		                });
+
+		                $("#sleepButton").click(function(){
+		                     const url = 'sleep.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+					  		window.location.href = url;
+		                });
+
+		                $("#playButton").click(function(){
+		                    const url = 'Play.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+					  		window.location.href = url;
+		                });
+
+		                $("#medButton").click(function(){
+		                    const url = 'Med.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue + '&sleepValue=' + sleepValue + '&playValue=' + playValue + '&medValue=' + medValue;
+					  		window.location.href = url;
+		                });
 			    }, 1000);
 			});
-
-
-            $(document).ready(function(){
-                var eatValue = 50;
-                var sleepValue = 50;
-                var playValue = 50;
-                var medValue = 50;
-                updateBars();
-                // decrease the values of each progress bar every 2 seconds
-                setInterval(function(){
-                    if (eatValue > 0) eatValue -= 1;
-                    if (sleepValue > 0) sleepValue -= 1;
-                    if (playValue > 0) playValue -= 1;
-                    if (medValue > 0) medValue -= 1;
-                    updateBars();
-                }, 5000);
-                
-                function updateBars(){
-                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
-                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
-                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
-                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
-                }
-
-                $("#eatButton").click(function(){
-                    if(eatValue <100){
-                        eatValue +=5;
-                        sleepValue -=1;
-                        playValue -= 1;
-                        medValue -= 1;
-                        updateBars();
-                    }
-                });
-
-                $("#sleepButton").click(function(){
-                    if(sleepValue <100){
-                        eatValue -= 1;
-                        sleepValue += 5;
-                        playValue -= 1;
-                        medValue -= 1;
-                        updateBars();
-                    }
-                });
-
-                $("#playButton").click(function(){
-                    if(playValue <100){
-                        eatValue -= 1;
-                        sleepValue -= 1;
-                        playValue += 5;
-                        medValue -= 1;
-                        updateBars();
-                    }
-                });
-
-                $("#medButton").click(function(){
-                    if(medValue <100){
-                        eatValue -=1;
-                        sleepValue -=1;
-                        playValue -= 1;
-                        medValue += 5;
-                        updateBars();
-                    }
-                });
-            });
 
         </script>
     </body>
