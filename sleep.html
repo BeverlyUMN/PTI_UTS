@@ -1,18 +1,289 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sleep</title>
-    <link rel="stylesheet" href="style.css"/>
-    <style>
-      .responsive
-    {
-      width: auto;
-    }
-    </style>
-  </head>
-  <body>
-    <img src="imgUTS/play.gif" class="responsive" id="image">
-  <script src="script.js"></script>
-  </body>
-  <button onclick="changeImage()" id="button">Sleep</button>
+    <head>
+        <title>Sleep Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    </head>
+    	<style type="text/css">
+    		* {
+    			color: white;
+    			font-weight: bold;
+    			margin: 0;
+    			padding: 0;
+    		}
+
+    		body {
+    			min-height: 700px;
+    		}
+
+    		#allButtons button{
+			    width:25%;
+			    margin: 5px;
+			}
+
+			#progressBar .progress{
+			    width:100%;
+			}
+
+			#progressBar img{
+			    width: 40x;
+			    height: 40px;
+			    margin-right: 10px;
+			}
+
+			#tempat {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 290px;
+			}
+
+			#tempat img {
+				max-width: 100px;
+			}
+    	</style>
+    <body>
+        <div class="container p2 text-center">
+            <div class="row mt-2">
+				<div class="col">
+					<h5 class="mt-2" id="pet"></h5>
+				</div>
+				<div class="col">
+					<h3>UMN Gotcha</h3>
+				</div>
+				<div class="col">
+					<h5 class="mt-2" id="level"></h5>
+				</div>
+			</div>
+
+			<hr style="border: 2px solid black;">
+
+            <div id="progressBar">
+                <div class="row p-1">
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/makan.png">
+                        <div class="progress" id="eatBar">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">100%</div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/tidur.png">
+                        <div class="progress" id="sleepBar">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/main.png">
+                        <div class="progress" id="playBar">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                        <img src="icons/med.png">
+                        <div class="progress"  id="medBar">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+            <div id="theGreetings">
+                <h3 class="mt-3 mb-3" id="theMessage"></h3>
+                <h5 id="theHours"></h5>
+            </div>
+
+            <div id="tempat">
+            </div>
+
+          </div class="mt-1">
+            <img src="imgUTS/karakter/play.gif" id="image">
+            <div class="row">
+              <div class="col">
+            </div>
+          </div>
+
+        <div>
+
+            <div id="allButtons">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-success btn-sm btn-md btn-lg btn-xl btn-block" id="eatButton">Eat</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-info btn-sm btn-md btn-lg btn-xl btn-block" id="sleepButton" onclick="changeImage()">Sleep</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-warning btn-sm btn-md btn-lg btn-xl btn-block" id="playButton">Game</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-danger btn-sm btn-md btn-lg btn-xl btn-block" id="medButton">Med</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+          function changeImage()
+          {
+            var img = document.getElementById("image");
+            img.src = 'imgUTS/karakter/sleep.gif';
+          }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('.progress-bar').each(function(){
+                    var width = $(this).attr('aria-valuenow');
+                    $(this).animate({width: width + '%'}, 1000, function(){
+                        $(this).text(width + '%');
+                    });
+                });
+            });
+
+            $(document).ready(function() {
+			    let hour = 0;
+			    let minute = 0;
+			    let day = 1;
+			    let level = 1; // set level awal ke 1
+			    setInterval(() => {
+			        minute++;
+			        if (minute >= 60) {
+			            hour++;
+			            minute = 0;
+			        }
+			        if (hour >= 24) {
+			            day++;
+			            hour = 0;
+
+			            // tambahkan kondisi untuk mengisi variabel level
+			        	if (day === 1) {
+			                level = 2;
+			       		 } else if (day === 2) {
+			                level = 3;
+			            }
+			        }
+
+			        document.getElementById('level').textContent = "Level " + level;
+
+			        let greeting;
+			        if (hour >= 0 && hour < 12) {
+			            greeting = "Good Morning";
+			        } else if (hour >= 12 && hour < 18) {
+			            greeting = "Good Afternoon";
+			        } else {
+			            greeting = "Good Evening";
+			        }
+			        
+				    var params = new URLSearchParams(window.location.search);
+				    var petname = params.get('petname');
+				    document.getElementById('pet').textContent = greeting + " " + petname;
+
+			        if (hour >= 0 && hour < 15) {
+			            $('body').css('background', 'url(imgUTS/background/bedroom.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+			        } else if (hour >= 15 && hour < 24) {
+			            $('body').css('background', 'url(backgrounds/coba.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
+			        }
+
+			        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+			        $('#theHours').text(formattedTime);
+			        $('#theMessage').text("Day " + day);
+			        
+			        var character = params.get('character');
+			        console.log(character);
+			        if (character === "gudetama") {
+			        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
+				        if (level === 1) {
+				            $('#tempat').html('<img src="characters/tamaBayi.png">');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/tamaAnak.png">');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/tamaGede.png">');
+				        }
+			        } else if (character === "stitch"){
+			        	if (level === 1) {
+				            $('#tempat').html('<img src="characters/stitchBayi.png">');
+				        } else if (level === 2) {
+				            $('#tempat').html('<img src="characters/stitchAnak.png">');
+				        } else if (level === 3) {
+				            $('#tempat').html('<img src="characters/stitchGede.png">');
+				        }
+			        }
+			        // simpan variabel hour, day, dan level pada session storage
+			        sessionStorage.setItem('hour', hour);
+			        sessionStorage.setItem('day', day);
+			        sessionStorage.setItem('level', level);
+			        sessionStorage.setItem('character', character);
+			    }, 1000);
+			});
+
+
+            $(document).ready(function(){
+                var eatValue = 50;
+                var sleepValue = 50;
+                var playValue = 50;
+                var medValue = 50;
+                updateBars();
+                // decrease the values of each progress bar every 2 seconds
+                setInterval(function(){
+                    if (eatValue > 0) eatValue -= 1;
+                    if (sleepValue > 0) sleepValue -= 1;
+                    if (playValue > 0) playValue -= 1;
+                    if (medValue > 0) medValue -= 1;
+                    updateBars();
+                }, 5000);
+                
+                function updateBars(){
+                    $("#eatBar .progress-bar").css("width", eatValue + "%").attr("aria-valuenow", eatValue).text(eatValue + "%");
+                    $("#sleepBar .progress-bar").css("width", sleepValue + "%").attr("aria-valuenow", sleepValue).text(sleepValue + "%");
+                    $("#playBar .progress-bar").css("width", playValue + "%").attr("aria-valuenow", playValue).text(playValue + "%");
+                    $("#medBar .progress-bar").css("width", medValue + "%").attr("aria-valuenow", medValue).text(medValue + "%");
+                }
+
+                $("#eatButton").click(function(){
+                    if(eatValue <100){
+                        eatValue +=5;
+                        sleepValue -=1;
+                        playValue -= 1;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
+
+                $("#sleepButton").click(function(){
+                    if(sleepValue <100){
+                        eatValue -= 1;
+                        sleepValue += 5;
+                        playValue -= 1;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
+
+                $("#playButton").click(function(){
+                    if(playValue <100){
+                        eatValue -= 1;
+                        sleepValue -= 1;
+                        playValue += 5;
+                        medValue -= 1;
+                        updateBars();
+                    }
+                });
+
+                $("#medButton").click(function(){
+                    if(medValue <100){
+                        eatValue -=1;
+                        sleepValue -=1;
+                        playValue -= 1;
+                        medValue += 5;
+                        updateBars();
+                    }
+                });
+            });
+
+        </script>
+    </body>
 </html>
