@@ -16,7 +16,7 @@
 		}
 
 		body {
-			min-height: 700px;
+			min-height: 800px;
 		}
 
 		#allButtons button{
@@ -56,7 +56,7 @@
 			align-items: center;
 			flex-direction: column;
 			margin-bottom: -100px;
-			margin-top: -200px;
+			margin-top: -275px;
 		}
 
 		#container img {
@@ -274,24 +274,9 @@
 					  const petname = sessionStorage.getItem('petname');
 					  
 
-					  $("#back").click(function(){
+					$("#back").click(function(){
 		                    const url = 'home.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
 					  		window.location.href = url;
-		                });
-					  $("#eatButton").click(function(){
-		                    
-		                });
-
-		                $("#sleepButton").click(function(){
-		                     
-		                });
-
-		                $("#playButton").click(function(){
-		                    
-		                });
-
-		                $("#medButton").click(function(){
-		                    
 		                });
 					});
 			    }, 1000);
@@ -361,6 +346,16 @@
 			    	sessionStorage.setItem('playValue', playValue);
 			    	sessionStorage.setItem('medValue', medValue);
                 }
+                
+				$("#eatButton").click(function(){
+                    if(eatValue <100){
+	                        eatValue +=5;
+	                        sleepValue -=1;
+	                        playValue -= 1;
+	                        medValue -= 1;
+	                        updateBars();
+                	}
+                });
             });
 
     </script>
