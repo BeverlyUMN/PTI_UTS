@@ -133,12 +133,6 @@
 			            greeting = "Good Evening";
 			        }
 
-                    if (hour >= 0 && hour < 15) {
-			            $('body').css('background', 'url(backgrounds/coba1.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
-			        } else if (hour >= 15 && hour < 24) {
-			            $('body').css('background', 'url(backgrounds/coba.jpg)').css('background-size', 'cover').css('background-repeat', 'no-repeat').css('height', '655px');
-			        }
-
 			        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
 			        $('#theHours').text(formattedTime);
 			        $('#theMessage').text("Day " + day);
