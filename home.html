@@ -179,22 +179,23 @@
 			        $('#theMessage').text("Day " + day);
 
 			        var character = params.get('character');
+			        console.log(character);
 			        if (character === "gudetama") {
 			        	// tambahkan kondisi untuk menampilkan gambar sesuai dengan level
 				        if (level === 1) {
-				            $('#tempat').html('<img src="characters/tamaBayi.png"');
+				            $('#tempat').html('<img src="characters/tamaBayi.png">');
 				        } else if (level === 2) {
-				            $('#tempat').html('<img src="characters/tamaAnak.png"');
+				            $('#tempat').html('<img src="characters/tamaAnak.png">');
 				        } else if (level === 3) {
-				            $('#tempat').html('<img src="characters/tamaGede.png"');
+				            $('#tempat').html('<img src="characters/tamaGede.png">');
 				        }
 			        } else if (character === "stitch"){
 			        	if (level === 1) {
-				            $('#tempat').html('<img src="characters/stitchBayi.png"');
+				            $('#tempat').html('<img src="characters/stitchBayi.png">');
 				        } else if (level === 2) {
-				            $('#tempat').html('<img src="characters/stitchAnak.png"');
+				            $('#tempat').html('<img src="characters/stitchAnak.png">');
 				        } else if (level === 3) {
-				            $('#tempat').html('<img src="characters/stitchGede.png"');
+				            $('#tempat').html('<img src="characters/stitchGede.png">');
 				        }
 			        }
 			        // simpan variabel hour, day, dan level pada session storage

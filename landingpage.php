@@ -69,8 +69,8 @@
 				  </button>
 				</div>
 			</div>
-
 			<div class="col mt-sm-4 mt-md-0">
+				<h4>Choose your pet character!</h4>
 				<select class="form-select" aria-label="Default select example" id="character">
 				  <option selected>Open this select character</option>
 				  <option value="stitch">Stitch</option>
@@ -81,7 +81,7 @@
 		
 		<br>
 		<div class="mb-3 w-50" id="place">
-		  <label for="exampleFormControlInput1" class="form-label">Enter your pet name here...</label>
+		  <h4>Enter your pet name here...</h4>
 		  <input type="text" class="form-control" id="petname" name="petname">
 		</div>
 
