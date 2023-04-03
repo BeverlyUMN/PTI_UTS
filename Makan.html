@@ -173,16 +173,16 @@
         </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    	$(document).ready(function(){
-                $('.progress-bar').each(function(){
-                    var width = $(this).attr('aria-valuenow');
-                    $(this).animate({width: width + '%'}, 1000, function(){
-                        $(this).text(width + '%');
-                    });
+        $(document).ready(function(){
+            $('.progress-bar').each(function(){
+                var width = $(this).attr('aria-valuenow');
+                $(this).animate({width: width + '%'}, 1000, function(){
+                    $(this).text(width + '%');
                 });
             });
+        });
 
-            $(document).ready(function() {
+          $(document).ready(function() {
 			    var urlParams = new URLSearchParams(window.location.search);
 			    var minute = parseInt(urlParams.get('minute'));
 			    var hour = parseInt(urlParams.get('hour'));
@@ -197,7 +197,7 @@
 			            hour++;
 			            minute = 0;
 			        }
-			        if (hour >= 24) {
+			         if (hour >= 24) {
 			            day++;
 			            hour = 0;
 
@@ -209,9 +209,9 @@
 			            }
 			        }
 
-			        document.getElementById('level').textContent = "Level " + level;
+			         document.getElementById('level').textContent = "Level " + level;
 
-			        let greeting;
+			          let greeting;
 			        if (hour >= 0 && hour < 12) {
 			            greeting = "Good Morning";
 			        } else if (hour >= 12 && hour < 18) {
@@ -257,8 +257,6 @@
 			        sessionStorage.setItem('character', character);
 			        sessionStorage.setItem('petname', petname);
 
-			        console.log(petname);
-
 
 				    document.getElementById('pet').textContent = greeting + " " + petname;
 
@@ -276,7 +274,7 @@
 					  const petname = sessionStorage.getItem('petname');
 					  
 
-					$("#back").click(function(){
+					  $("#back").click(function(){
 		                    const url = 'home.html?minute='+ minute + '&hour=' + hour + '&day=' + day + '&level=' + level + '&character=' + character + '&eatValue=' + eatValue +'&sleepValue=' + sleepValue +'&playValue=' + playValue + '&medValue=' + medValue + '&petname=' + petname;
 					  		window.location.href = url;
 		                });
@@ -349,7 +347,7 @@
 			    	sessionStorage.setItem('medValue', medValue);
                 }
 
-				$("#eatButton").click(function(){
+                $("#eatButton").click(function(){
                     if(eatValue <100){
 	                        eatValue +=5;
 	                        sleepValue -=1;
@@ -360,9 +358,9 @@
                 });
             });
 
-    </script>
+	</script>
 
-	<script>
+		<script>
 	function addImage() {
 		var container = document.getElementById("container");
 		var imgSources = [
