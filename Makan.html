@@ -61,37 +61,36 @@
 	</div>
 
 	<script>
-function addImage() {
-  var container = document.getElementById("container");
-  var imgSources = [
-    "icons/food.png",
-    "icons/food1.png",
-    "icons/food2.png",
-    "icons/food3.png",
-    "icons/food4.png"
-  ];
-  var img = document.createElement("img");
-  img.src = imgSources[Math.floor(Math.random() * imgSources.length)];
-  img.classList.add("img-fluid", "d-block", "spawn-image");
-  container.appendChild(img);
+	function addImage() {
+		var container = document.getElementById("container");
+		var imgSources = [
+	    "icons/food.png",
+	    "icons/food1.png",
+	    "icons/food2.png",
+	    "icons/food3.png",
+	    "icons/food4.png"
+		];
+		var img = document.createElement("img");
+		img.src = imgSources[Math.floor(Math.random() * imgSources.length)];
+		img.classList.add("img-fluid", "d-block", "spawn-image");
+		container.appendChild(img);
 
-  // animate image from button to middle
-  var buttonRect = document.getElementById("button").getBoundingClientRect();
-  var containerRect = container.getBoundingClientRect();
-  var x = buttonRect.left + buttonRect.width / 2 - containerRect.left;
-  var y = buttonRect.top + buttonRect.height / 2 - containerRect.top;
-  img.style.transform = "translate(" + x + "px, " + y + "px)";
+		// animate image from button to middle
+		var buttonRect = document.getElementById("button").getBoundingClientRect();
+		var containerRect = container.getBoundingClientRect();
+		var x = buttonRect.left + buttonRect.width / 2 - containerRect.left;
+		var y = buttonRect.top + buttonRect.height / 2 - containerRect.top;
+		img.style.transform = "translate(" + x + "px, " + y + "px)";
 
-  // detect when the image animation has finished
-  img.addEventListener("transitionend", function() {
-    // remove image from container after animation
-    container.removeChild(img);
-  });
+		// detect when the image animation has finished
+		img.addEventListener("transitionend", function() {
+	    // remove image from container after animation
+	    container.removeChild(img);
+		});
 
-  // animate image opacity
-  img.classList.add("visible");
-}
-
+		// animate image opacity
+		img.classList.add("visible");
+	}
 	</script>
 </body>
 </html>
