@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     </head>
     <body>
-        <div class="container p2 text-center">
+        <div class="container p2 text-center" style="color: white; font-family: Verdana;">
             <div class="row mb-3 mt-3">
                 <div class="col">
                     <h5 class="mt-2" id="halo"></h5>
@@ -108,18 +108,18 @@
                 var params = new URLSearchParams(window.location.search);
                 var petname = params.get('petname'); 
                 $('#halo').text("Halo " + petname);
-            });
+            // });
 
-            $(document).ready(function(){//for progress bar width and percentage
+            // $(document).ready(function(){//for progress bar width and percentage
                 $('.progress-bar').each(function(){
                     var width = $(this).attr('aria-valuenow');
                     $(this).animate({width: width + '%'}, 1000, function(){
                         $(this).text(width + '%');
                     });
                 });
-            });
+            // });
 
-            $(document).ready(function(){
+            // $(document).ready(function(){
                 //for the clock and greeting of the game
                 let hour = 0;
                 let minute = 0;
@@ -149,9 +149,9 @@
                     const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
                     $('#theHours').text(formattedTime);
                 }, 1000);
-            });
+            // });
 
-            $(document).ready(function(){
+            // $(document).ready(function(){
                 var eatValue = 50;
                 var sleepValue = 50;
                 var playValue = 50;
@@ -197,7 +197,7 @@
                     if(playValue <100){
                         eatValue -= 1;
                         sleepValue -= 1;
-                        playValue += 5;
+                        playValue += 1; ///to match the checkStar function
                         medValue -= 1;
                         updateBars();
                     }
@@ -212,14 +212,9 @@
                         updateBars();
                     }
                 });
-                $(".star").click(function(){
-                    // add 1 to the playValue when a star is caught
-                    playValue += 1;
-                    updateBars();
-                }); 
-            });
+            // });
 
-            $(document).ready(function(){
+            // $(document).ready(function(){
                 // set initial background size
                 $('body').css('background-size', 'cover');
                 // adjust background size on window resize
@@ -230,9 +225,9 @@
                     var size = Math.max(width, height);
                     $('body').css('background-size', size + 'px');
                 });
-            });
+            // });
 
-            $(document).ready(function(){
+            // $(document).ready(function(){
                 $('#playButton').click(function(){
                     $('#gameMessage').text('The game is starting...').fadeIn();
                     setTimeout(function(){
@@ -242,9 +237,9 @@
                         });
                     }, 3000);
                 });
-            });
+            // });
 
-            $(document).ready(function(){
+            // $(document).ready(function(){
                 var container = $('#gameContainer');
                 var character = $('#character');
                 var moveAmount = 50; // amount of pixels to move the character
@@ -292,11 +287,33 @@
                          charPos.top < starPos.top + star.height() &&
                          charPos.top + character.height() > starPos.top){
                             hideStar();
+                            playValue += 10;
+                            updateBars();
+                        }
+                        else{
+                            playValue -=1;
+                            updateBars();
+                            if (playValue < 0){
+                                playValue = 0;
+                            }
+                        }
+                        if (playValue >= 100){
+                            character.hide();
+                            star.hide();
+                            $('#upBtn, #downBtn, #leftBtn, #rightBtn').hide();
+                            $('#gameContainer').text('Game finished, well done!');
+                        }
+                        else if(eatValue < 15 || sleepValue <15 || medValue < 15){
+                            character.hide();
+                            star.hide();
+                            $('#upBtn, #downBtn, #leftBtn, #rightBtn').hide();
+                            $('#gameContainer').text('Game over, try again');
                         }
                     }
                 }
                 starTimeout = setTimeout(showStar, 5000);
-                setInterval(checkStar, 100);
+                setInterval(checkStar, 5000);
+
                 $('#upBtn').click(function(){
                     var topPos = parseInt(character.css('top'));
                     var newPos = topPos - moveAmount;
@@ -305,6 +322,7 @@
                     }
                     checkStar();
                 });
+
                 $('#downBtn').click(function(){
                     var topPos = parseInt(character.css('top'));
                     var newPos = topPos + moveAmount;
